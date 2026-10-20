@@ -1,1 +1,1 @@
-{"release":"odbiryani-2026-10-20-meal-request","orderHandling":"Netlify Forms","pricing":"Personal quote","minimumPeople":4,"availableMeat":"chicken"}
+{"release":"odbiryani-2026-10-20-pricing-delivery","orderHandling":"Netlify Forms","pricing":"Published food prices; separate delivery quote","minimumPeople":4,"availableMeat":"chicken","deliveryRadiusMiles":5}

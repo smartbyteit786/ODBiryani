@@ -53,7 +53,7 @@ export default function Footer() {
           {/* contact */}
           <div>
             <h3 className="font-display text-base font-semibold text-saffron">Planning a meal?</h3>
-            <p className="mt-4 text-sm leading-relaxed text-cream/60">Chicken biryani for 4 people or more. We&apos;ll confirm the price and details with you. Beef and lamb coming soon.</p>
+            <p className="mt-4 text-sm leading-relaxed text-cream/60">Chicken biryani for 4 people or more. Delivery within 5 miles of our kitchen, charged separately by distance. We confirm your final total before booking. Beef and lamb coming soon.</p>
             <a href="#order" className="mt-4 inline-block text-sm text-saffron underline underline-offset-4">Plan your meal</a>
           </div>
         </div>

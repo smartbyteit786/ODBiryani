@@ -1,5 +1,15 @@
 # Worklog
 
+## October 20, 2026 — Published prices and five-mile delivery
+
+- User authorized publishing the four approved food prices and specified a five-mile service radius with delivery charged separately by mileage. This supersedes the previous no-public-pricing direction.
+- Meal size cards show 4 people $50, 6 people $75, 10 people $120, 15 people $145. Exact counts use these food subtotals; other group sizes still require a personal quote. No inferred discounts, fees, or inflation increases.
+- Added required delivery address, separate food-subtotal/delivery-fee summary, five-mile eligibility wording, and a three-step explanation of requesting, confirming, and receiving the meal. Confirmation remains a request, not an accepted booking or payment.
+- Current limitation: kitchen origin, distance metric, and mileage fee schedule are not supplied. Delivery eligibility, mileage fee, final total, and timing are owner-confirmed manually. No automatic geofence or mileage calculation is claimed. Asked user for starting address/ZIP; response pending.
+- Verified Netlify order notifications configuration: no submission-created hooks exist. Requests arrive in Netlify Forms; email/SMS alerts are not configured. An approved recipient is needed before forwarding customer data. Do not assume an account/profile email is the intended recipient.
+- Four pricing/radius unit checks, full ESLint, production build including TypeScript, and the built-page contract check passed. The form definition contains deliveryAddress, foodSubtotal, and deliveryFee. Aggregate form count before acceptance test: 3; no submission records were fetched.
+- Publication and live acceptance results pending below.
+
 ## October 20, 2026 — Approved quote prices
 
 - Owner supplied chicken biryani totals: 4 people $50; 6 people $75; 10 people $120; 15 people $145.

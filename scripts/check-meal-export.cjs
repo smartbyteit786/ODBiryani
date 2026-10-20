@@ -4,7 +4,8 @@ const assert = require('node:assert/strict');
 const html = fs.readFileSync('out/index.html', 'utf8');
 const text = html.replace(/<script\b[\s\S]*?<\/script>/g, '').replace(/<style\b[\s\S]*?<\/style>/g, '').replace(/<[^>]*>/g, ' ');
 assert(text.includes('Welcome to ODB.'));
-assert(!/(\$\s*\d|\d+\.99|Menu &amp; Prices|Estimated total|10% off)/i.test(text), 'Public rate found');
+assert(!/(\d+\.99|10% off)/i.test(text), 'Legacy prices or discounts found');
+for (const price of [50, 75, 120, 145]) assert(new RegExp('\\$\\s*' + price + '\\b').test(text), 'Missing approved package price ' + price);
 const input = [...html.matchAll(/<input\b[^>]*>/g)].map(m => m[0]).find(tag => tag.includes('name="people"'));
 assert(input && input.includes('min="4"') && input.includes('required'), 'Guest count must require at least four');
 const buttons = [...html.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/g)];
@@ -14,5 +15,9 @@ for (const meat of ['Beef', 'Lamb']) {
 }
 const form = fs.readFileSync('public/__forms.html', 'utf8');
 assert(form.includes('name="people"'));
-assert(text.includes('current ingredient costs'));
-console.log('Meal export passed: no public rates; minimum four; beef and lamb disabled; guest field registered.');
+for (const field of ['deliveryAddress', 'foodSubtotal', 'deliveryFee']) assert(form.includes('name="' + field + '"'), 'Missing order field ' + field);
+const address = [...html.matchAll(/<textarea\b([^>]*)>/g)].find(m => m[1].includes('name="deliveryAddress"'));
+assert(address && address[1].includes('required'), 'Delivery address must be required');
+assert(text.includes('Delivery fee') && text.includes('Confirmed by distance'));
+assert(text.includes('within 5 miles') && text.includes('What happens next?'));
+console.log('Meal export passed: four approved prices; minimum four; unavailable meats; required delivery address; separate distance-based delivery quote.');

@@ -20,6 +20,7 @@ const res=await fetch('https://api.netlify.com/api/v1/sites/'+state.siteId+'/dep
 }
 if(action==='status'){const d=await api('/deploys/'+state.deployId);console.log(JSON.stringify({id:d.id,state:d.state,url:d.ssl_url||d.url,preview:d.deploy_ssl_url,error:d.error_message,publishedAt:d.published_at,required:d.required,summary:d.summary}));return;}
 if(action==='forms'){const forms=await api('/sites/'+state.siteId+'/forms');console.log(JSON.stringify(forms.map(f=>({id:f.id,name:f.name,count:f.submission_count})),null,2));return;}
+if(action==='notifications'){const hooks=await api('/hooks?site_id='+encodeURIComponent(state.siteId));console.log(JSON.stringify(hooks.filter(h=>h.event==='submission_created').map(h=>({id:h.id,type:h.type,event:h.event,formId:h.form_id,enabled:h.disabled!==true})),null,2));return;}
 if(action==='inspect'){const site=await api('/sites/'+state.siteId);console.log(JSON.stringify(Object.fromEntries(Object.entries(site).filter(([k])=>/form|process|capab|account_id/.test(k))),null,2));return;}
 const res=await fetch('https://api.netlify.com/api/v1/sites?per_page=100',{headers:{Authorization:`Bearer ${token}`},signal:AbortSignal.timeout(20000)});
 if(!res.ok)throw new Error('Netlify API status '+res.status);
