@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
-import { Menu, X, ShoppingBag, Phone } from "lucide-react";
-import { ORDER_PHONE_DISPLAY, getOrderPhoneHref } from "@/lib/order-contact";
+import { Menu, X, ShoppingBag, MessageCircle } from "lucide-react";
+import { ORDER_PHONE_DISPLAY, getOrderTextHref } from "@/lib/order-contact";
 
 const LINKS = [
   { href: "#order", label: "Plan Your Meal" },
@@ -11,7 +11,7 @@ const LINKS = [
 ];
 
 export default function Navbar() {
-  const phoneHref = getOrderPhoneHref(ORDER_PHONE_DISPLAY);
+  const phoneHref = getOrderTextHref(ORDER_PHONE_DISPLAY);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement | null>(null);
@@ -90,11 +90,11 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <a
-              href={phoneHref || "#order"}
+              href="#order"
               className="group hidden items-center gap-2 rounded-full bg-saffron px-5 py-2.5 text-[13px] font-extrabold tracking-wide text-espresso uppercase transition-all duration-300 hover:bg-saffron-bright hover:shadow-[0_0_28px_rgba(233,161,59,0.5)] sm:flex"
             >
-              {phoneHref ? <Phone className="h-4 w-4" /> : <ShoppingBag className="h-4 w-4" />}
-              {phoneHref ? "Call to order" : "Plan a Meal"}
+              {phoneHref ? <MessageCircle className="h-4 w-4" /> : <ShoppingBag className="h-4 w-4" />}
+              {phoneHref ? "Text to order" : "Plan a Meal"}
             </a>
             <button
               ref={menuButton}
@@ -139,11 +139,11 @@ export default function Navbar() {
                 ))}
                 <li className="pt-3">
                   <a
-                    href={phoneHref || "#order"}
+                    href="#order"
                     onClick={() => setOpen(false)}
                     className="inline-flex items-center gap-2 rounded-full bg-saffron px-6 py-3 text-sm font-extrabold tracking-wide text-espresso uppercase"
                   >
-                    {phoneHref ? <Phone className="h-4 w-4" /> : <ShoppingBag className="h-4 w-4" />} {phoneHref ? "Call to order" : "Plan a Meal"}
+                    {phoneHref ? <MessageCircle className="h-4 w-4" /> : <ShoppingBag className="h-4 w-4" />} {phoneHref ? "Text to order" : "Plan a Meal"}
                   </a>
                 </li>
               </ul>

@@ -16,10 +16,14 @@ for (const meat of ['Beef', 'Lamb']) {
 assert(html.includes('name="fulfillment"') && html.includes('value="pickup"') && html.includes('value="delivery"'), 'Pickup and delivery must be available');
 assert(text.includes('No delivery charge') && text.includes('by route'));
 for (const method of ['Zelle', 'Apple Cash', 'Cash App']) assert(text.includes(method), 'Missing payment method ' + method);
-assert(text.includes('How to order') && text.includes('Call ODB'));
-assert(!html.includes('name="name"') && !html.includes('name="phone"') && !html.includes('name="deliveryAddress"'), 'Phone-only ordering must not collect customer details through the website');
+assert(text.includes('How to order') && text.includes('Text ODB'));
+assert(!html.includes('name="name"') && !html.includes('name="phone"') && !html.includes('name="deliveryAddress"'), 'Text-only ordering must not collect customer details through the website');
 assert(!text.includes('Send my meal request'), 'Old web request button must not be visible');
-const callLinks = [...html.matchAll(/href="(tel:[^"]+)"/g)].map(match => match[1]);
-assert(callLinks.length >= 3 && callLinks.every(link => link === 'tel:+17702947145'), 'All order call links must use the approved ODB number');
+const textLinks = [...html.matchAll(/href="(sms:[^"]+)"/g)].map(match => match[1]);
+assert(textLinks.length >= 2 && textLinks.every(link => link.startsWith('sms:+17702947145')), 'All order text links must use the approved ODB number');
 assert(text.includes('+1 (770) 294-7145'), 'Approved phone number must be visible');
-console.log('Ordering export passed: approved prices, minimum four, unavailable meats, pickup/delivery, payment methods, and phone-only flow.');
+console.log('Ordering export passed: approved prices, minimum four, unavailable meats, pickup/delivery, payment methods, and text-only flow.');
+
+assert(!/href="tel:/.test(html), 'No call links allowed');
+assert(html.includes('type="date"') && html.includes('type="time"'), 'Requested date and time required');
+assert(text.includes('50% booking deposit'), 'Deposit terms required');

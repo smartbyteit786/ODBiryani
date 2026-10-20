@@ -1,5 +1,14 @@
 # Worklog
 
+## October 20, 2026 — Text-only requests, calendar and 50% deposit
+
+- Owner requested text-only ordering for privacy, requested date/time, and approved a 50% booking deposit. Replaced active call links with text drafting and planner navigation. Public number stays +1 (770) 294-7145; no owner name or private address added.
+- Planner requires at least four people, a requested local date (past dates rejected), and preferred time. Native calendar/time controls are used. SMS draft includes meal size, date/time, pickup/delivery, meal price, and a request to confirm availability/final total/deposit. User must send the message; no automatic reservation, submission, payment, or SMS sending exists. Copy/preview fallback included for desktop or unsupported SMS clients.
+- Deposit is half the confirmed final total including delivery. Pickup meal examples: $25/$37.50/$60/$72.50. Delivery displays “After final total”; no invented mileage fee. Remaining balance due at pickup/delivery. Refund/change/cancellation rules are unspecified; agree privately before taking payment and do not invent non-refundability.
+- Nine unit tests passed, full ESLint passed after correcting client date initialization, production build/TypeScript passed, exported contract passed. Live HTTP UAT 30/30 passed (18 assets); custom-domain release check passed. Browser checked required-field blocking, past-date rejection, selected date/time in SMS href, $37.50 pickup deposit on $75, delivery deposit deferral, copy success, and no overflow at 320/390/768/1440px. No console warnings/errors reported.
+- Published release `odbiryani-2026-10-20-text-calendar-deposit`, Netlify deploy `6ad7bb07d5c3d0facb81ab02`, ready at 19:03 UTC on https://onedishbiryani.com. Screenshot .netlify/uat/text-deposit.png.
+- No message was sent and no payment made. Actual iPhone/Android Messages handoff/receipt still needs physical device acceptance; both platform SMS URI formats are unit checked. Website removes call links but cannot disable incoming voice calls or hide identities within payment apps. Next: business-number call handling, private payment recipient verification, cancellation terms and delivery fee policy.
+
 ## October 20, 2026 — Full website UAT and accessibility fixes
 
 - Completed live functional UAT against the phone-only release; detailed results and remaining operational acceptance steps are in docs/UAT-2026-10-20.md.
