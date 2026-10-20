@@ -5,7 +5,11 @@
 - User supplied and approved the public order number +1 (770) 294-7145. Configured display and call links as `tel:+17702947145`; no owner name, public email, pickup address, or payment handle is published.
 - Completing the tested `codex/pickup-phone-orders` draft for production. Pickup has no delivery charge; delivery within five miles has an extra route charge confirmed by phone. Listed payment methods are Zelle, Apple Cash, and Cash App; payment details are shared privately and are not integrated or verified by the website.
 - Built-page checks now verify the exact approved number and all rendered call targets. Live verification checks phone, payment methods, release marker, images, and headers.
-- Final build/tests, merge to main, publication, and live pickup/delivery acceptance are pending below. No phone call or payment will be initiated during verification.
+- Validation completed: six unit checks, full ESLint, production build including TypeScript, and the built-page contract check passed. The exact displayed number and all call hrefs were verified.
+- Source commit `3f69441` fast-forwarded into main and pushed. Netlify deploy `6ad7a02881da9e602658eb6c` reached ready at https://odbiryani.netlify.app. Live HTTP checks passed for the number, correct tel target, payment methods, release marker, photo, and security headers.
+- Live browser confirmed six people shows $75; delivery adds an extra route-confirmed charge; switching back to pickup shows no delivery charge. Zelle, Apple Cash, and Cash App are displayed; no customer name/phone/address web form is present. Header, order section, and footer link to `tel:+17702947145`.
+- No call was placed, no money transferred, and no payment receipt or order handling at the receiving phone was tested. Existing Netlify records were not accessed, deleted, or changed. Orders now arrive as customer calls rather than website submissions.
+- Screenshot saved locally under `.netlify/screenshots/phone-pickup-payments.png`. Delivery origin and exact route fee schedule remain unspecified, so distance eligibility and delivery fees are confirmed by phone; no automatic route calculation is claimed. Pickup location/time and payment details remain private.
 
 ## October 20, 2026 — Pickup, payments, and phone-only orders (awaiting number)
 
