@@ -1,5 +1,12 @@
 # Worklog
 
+## October 20, 2026 — Approved quote prices
+
+- Owner supplied chicken biryani totals: 4 people $50; 6 people $75; 10 people $120; 15 people $145.
+- Recorded exact-count pricing in docs/pricing-policy.md. The earlier instruction to show no public rates remains in effect; no customer-facing prices or automatic calculation were added.
+- Other group sizes require a personal quote. No automatic interpolation, extra fees, discounts, or inflation increases were assumed. Future price changes require owner approval.
+- Public site and order flow are unchanged; no deployment is needed for this documentation-only update.
+
 ## October 20, 2026 — Personal meal requests, no public rates
 
 - User requested a friendly greeting, guest count, meat choice, no displayed rates, and clean/fresh home-cooked positioning; then specified a minimum of four people with beef and lamb coming soon.
