@@ -8,7 +8,11 @@
 - Current limitation: kitchen origin, distance metric, and mileage fee schedule are not supplied. Delivery eligibility, mileage fee, final total, and timing are owner-confirmed manually. No automatic geofence or mileage calculation is claimed. Asked user for starting address/ZIP; response pending.
 - Verified Netlify order notifications configuration: no submission-created hooks exist. Requests arrive in Netlify Forms; email/SMS alerts are not configured. An approved recipient is needed before forwarding customer data. Do not assume an account/profile email is the intended recipient.
 - Four pricing/radius unit checks, full ESLint, production build including TypeScript, and the built-page contract check passed. The form definition contains deliveryAddress, foodSubtotal, and deliveryFee. Aggregate form count before acceptance test: 3; no submission records were fetched.
-- Publication and live acceptance results pending below.
+- Source commit 1edbd6e pushed to main; Netlify deploy 6ad70931d94fad5c8f8db661 reached ready at https://odbiryani.netlify.app. Live page, new release marker, delivery form definition, photo, and security-header checks passed.
+- Live browser: all four rates displayed; six people showed $75; eight people required a personal quote. Missing delivery address blocked submission. A marked synthetic six-person request showed confirmation reference 82003E with $75 meal price and delivery charged separately. Aggregate count increased from 3 to 4; no submission records were fetched.
+- Netlify form metadata confirmed deliveryAddress, foodSubtotal, and deliveryFee fields are registered. The marked request remains DO NOT FULFILL; no customer records were opened or deleted.
+- Local screenshots: .netlify/screenshots/pricing-delivery.png and pricing-delivery-success.png. Reset cleared customer name, phone, address, and notes.
+- Outstanding setup: kitchen origin/ZIP (question pending), mileage measurement basis and fee schedule for automatic calculation, and approved order-alert recipient. Until then use Netlify Forms and manually confirm delivery eligibility, fee, total, and timing.
 
 ## October 20, 2026 — Approved quote prices
 
