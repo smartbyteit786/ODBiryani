@@ -8,7 +8,11 @@
 - Retained legacy hidden form fields so earlier submission history remains readable. Form requests are not confirmed bookings; the owner confirms minimum quantity, availability, current quote, and timing.
 - Pricing is quoted privately using current ingredient costs. No inflation percentage or margin was invented; see docs/pricing-policy.md. No automatic inflation feed or price engine is configured.
 - Replaced forced smooth scrolling and the floating order pill with native anchors and an unobstructed form. Inputs use 16px text, visible labels, large targets, native guest-count validation, pending/error/success states.
-- Verification so far: full ESLint and production build including TypeScript passed. Built page checks confirmed the welcome, minimum four, no visible rates, disabled coming-soon meats, guest count field, and personal-quote wording. Live publication and acceptance checks pending.
+- Verification so far: full ESLint and production build including TypeScript passed. Built page checks confirmed the welcome, minimum four, no visible rates, disabled coming-soon meats, guest count field, and personal-quote wording. Published source commit 5fe9269. Netlify deploy 6ad7017b2a390a2622d9bb22 reached ready at https://odbiryani.netlify.app. Live homepage, release marker, form definition, photo, and security-header checks passed.
+- Live browser acceptance: three-person submission blocked with the guest field focused; aggregate count stayed at 1. Four-person chicken request showed success reference 7E3B5C, then Netlify aggregate count rose to 2. Test notes explicitly say RELEASE TEST - DO NOT FULFILL. No customer submission records were fetched.
+- Live page showed no rates, chicken available now, beef/lamb disabled with Coming soon. Resetting the request cleared guest count and customer details. Screenshots saved locally under .netlify/screenshots/meal-request.png and meal-request-success.png.
+- Local browser preview was unavailable; final visual and workflow acceptance used the deployed site. Desktop browser review completed; no physical iPhone test was performed.
+- Next: owner reviews meal requests in Netlify and confirms current ingredient-cost quote and timing. Email notifications and automatic GitHub builds remain unconfigured.
 
 ## October 20, 2026 — ODB brand clarification
 
