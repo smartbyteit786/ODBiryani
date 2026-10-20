@@ -27,8 +27,8 @@ export default function Footer() {
               </div>
             </div>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-cream/55">
-              Homestyle biryani cooked fresh in a single pot with pure olive oil and
-              real saffron. A bowl for you, or a tray to share.
+              Clean, fresh, home-cooked chicken biryani. Prepared with care for
+              family meals and time together.
             </p>
 
           </div>
@@ -38,12 +38,8 @@ export default function Footer() {
             <h3 className="font-display text-base font-semibold text-saffron">Explore</h3>
             <ul className="mt-4 space-y-2.5 text-sm text-cream/60">
               {[
-                ["#story", "Our Story"],
-                ["#craft", "How We Cook"],
-                ["#menu", "Menu & Prices"],
-                ["#gallery", "Gallery"],
-
-                ["#order", "Order Now"],
+                ["#order", "Plan Your Meal"],
+                ["#gallery", "Our Kitchen"],
               ].map(([href, label]) => (
                 <li key={href}>
                   <a href={href} className="transition-colors hover:text-saffron">
@@ -57,8 +53,8 @@ export default function Footer() {
           {/* contact */}
           <div>
             <h3 className="font-display text-base font-semibold text-saffron">Planning a meal?</h3>
-            <p className="mt-4 text-sm leading-relaxed text-cream/60">Choose your biryani, pick a size, and send us your order request.</p>
-            <a href="#order" className="mt-4 inline-block text-sm text-saffron underline underline-offset-4">Start your order</a>
+            <p className="mt-4 text-sm leading-relaxed text-cream/60">Chicken biryani for 4 people or more. We&apos;ll confirm the price and details with you. Beef and lamb coming soon.</p>
+            <a href="#order" className="mt-4 inline-block text-sm text-saffron underline underline-offset-4">Plan your meal</a>
           </div>
         </div>
 

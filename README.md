@@ -13,7 +13,7 @@ The production build is a static export in `out/`.
 - GitHub: https://github.com/smartbyteit786/ODBiryani
 - Netlify: https://odbiryani.netlify.app
 - Netlify site ID: `d9cc4ca2-0473-4f1f-93a2-afd761eec63c`
-- Order requests go to the `biryani-order` form in the Netlify dashboard.
+- Meal requests go to the `biryani-order` form in the Netlify dashboard, including the number of people. Chicken only; minimum four people. Beef and lamb are coming soon. No public rates; the owner confirms a personal quote using current ingredient costs.
 - `public/__forms.html` defines the fields Netlify detects. Keep these synchronized with `order.tsx`.
 - A request is not a confirmed booking or payment. No email notification or inbox delivery is promised by this implementation.
 - The original SQLite API has been retired from the deployed site. Local database files and uploaded originals are excluded from Git.

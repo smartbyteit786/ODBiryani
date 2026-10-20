@@ -1,5 +1,15 @@
 # Worklog
 
+## October 20, 2026 — Personal meal requests, no public rates
+
+- User requested a friendly greeting, guest count, meat choice, no displayed rates, and clean/fresh home-cooked positioning; then specified a minimum of four people with beef and lamb coming soon.
+- Homepage simplified to welcome, meal request, kitchen photos, and footer. Removed the active price table, size presets, promotions, and price navigation. Original components remain in source for history but are not imported by the page.
+- Request form asks guest count first (minimum four), shows chicken available and beef/lamb disabled, and collects name/phone with optional notes. It sends people and chicken to Netlify Forms, without calculating or submitting an estimated price.
+- Retained legacy hidden form fields so earlier submission history remains readable. Form requests are not confirmed bookings; the owner confirms minimum quantity, availability, current quote, and timing.
+- Pricing is quoted privately using current ingredient costs. No inflation percentage or margin was invented; see docs/pricing-policy.md. No automatic inflation feed or price engine is configured.
+- Replaced forced smooth scrolling and the floating order pill with native anchors and an unobstructed form. Inputs use 16px text, visible labels, large targets, native guest-count validation, pending/error/success states.
+- Verification so far: full ESLint and production build including TypeScript passed. Built page checks confirmed the welcome, minimum four, no visible rates, disabled coming-soon meats, guest count field, and personal-quote wording. Live publication and acceptance checks pending.
+
 ## October 20, 2026 — ODB brand clarification
 
 - User specified `ODB (one dish biryani)` as the brand name.

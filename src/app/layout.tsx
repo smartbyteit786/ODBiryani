@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: "ODB — One Dish Biryani",
   applicationName: "ODB — One Dish Biryani",
   description:
-    "Homemade chicken, beef, and lamb biryani with olive oil and real saffron. Choose a bowl for yourself or a tray to share.",
+    "Clean, fresh, home-cooked chicken biryani for groups of 4 or more. Tell ODB how many people and request a personal quote. Beef and lamb coming soon.",
   keywords: [
     "biryani",
     "homemade biryani",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: "ODB — One Dish Biryani",
     siteName: "ODB — One Dish Biryani",
     description:
-      "Homemade biryani for your table. Browse chicken, beef, and lamb bowls and sharing trays.",
+      "Home-cooked chicken biryani for 4 people or more. Request a personal quote. Beef and lamb coming soon.",
     type: "website",
   },
 };

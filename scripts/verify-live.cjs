@@ -3,7 +3,7 @@ const fs=require('node:fs');
 const state=JSON.parse(fs.readFileSync('release-state.json','utf8'));
 async function main(){
   const results=[];
-  for(const [route,expected] of [['/','Biryani to share.'],['/release.json','odbiryani-2026-10-20'],['/__forms.html','biryani-order'],['/images/pot-fresh.jpg',null]]){
+  for(const [route,expected] of [['/','Welcome to ODB.'],['/release.json','odbiryani-2026-10-20-meal-request'],['/__forms.html','biryani-order'],['/images/pot-fresh.jpg',null]]){
     const r=await fetch(state.url+route,{signal:AbortSignal.timeout(20000)});
     const ok=r.ok && (!expected || (await r.text()).includes(expected)) && r.headers.get('x-content-type-options')==='nosniff';
     results.push({route,status:r.status,passed:ok});
