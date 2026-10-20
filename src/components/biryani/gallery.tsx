@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useCallback, useRef } from "react";
+import { motion } from "framer-motion";
+import * as Dialog from "@radix-ui/react-dialog";
 import { X, ChevronLeft, ChevronRight, Expand, BadgeCheck } from "lucide-react";
 
 const PHOTOS = [
@@ -44,6 +45,7 @@ const PHOTOS = [
 
 export default function Gallery() {
   const [index, setIndex] = useState<number | null>(null);
+  const opener = useRef<HTMLButtonElement | null>(null);
 
   const close = useCallback(() => setIndex(null), []);
   const step = useCallback(
@@ -52,9 +54,10 @@ export default function Gallery() {
   );
 
   return (
+    <Dialog.Root open={index !== null} onOpenChange={(open) => { if (!open) close(); }}>
     <section
       id="gallery"
-      className="relative bg-cream py-24 text-espresso md:py-32"
+      className="relative scroll-mt-24 bg-cream py-24 text-espresso md:py-32"
       aria-label="Photo gallery"
     >
       <div className="mx-auto max-w-7xl px-5 md:px-8">
@@ -98,7 +101,7 @@ export default function Gallery() {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.55, delay: (i % 4) * 0.07 }}
-              onClick={() => setIndex(i)}
+              onClick={(event) => { opener.current = event.currentTarget; setIndex(i); }}
               className={`group relative overflow-hidden rounded-2xl text-left shadow-[0_14px_40px_rgba(20,13,7,0.14)] focus:outline-2 focus:outline-offset-2 focus:outline-ember ${p.span}`}
               aria-label={`Open photo: ${p.caption}`}
             >
@@ -128,25 +131,29 @@ export default function Gallery() {
       </div>
 
       {/* Lightbox */}
-      <AnimatePresence>
+      <Dialog.Portal>
         {index !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[90] flex items-center justify-center bg-espresso/95 p-4 backdrop-blur-md"
-            onClick={close}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Photo lightbox"
+          <>
+          <Dialog.Overlay className="fixed inset-0 z-[90] bg-espresso/95 backdrop-blur-md" />
+          <Dialog.Content
+            className="fixed inset-0 z-[91] flex items-center justify-center p-4 outline-none"
+            onCloseAutoFocus={(event) => { event.preventDefault(); opener.current?.focus(); }}
+            onClick={(event) => { if (event.target === event.currentTarget) close(); }}
+            onKeyDown={(event) => {
+              if (event.key === "ArrowLeft") { event.preventDefault(); step(-1); }
+              if (event.key === "ArrowRight") { event.preventDefault(); step(1); }
+            }}
           >
+            <Dialog.Title className="sr-only">Photo lightbox</Dialog.Title>
+            <Dialog.Description className="sr-only">{PHOTOS[index].caption}. Use the arrow keys to change photos and Escape to close.</Dialog.Description>
+            <Dialog.Close asChild>
             <button
               className="absolute top-5 right-5 flex h-11 w-11 items-center justify-center rounded-full border border-cream/25 text-cream transition-colors hover:border-saffron hover:text-saffron"
-              onClick={close}
               aria-label="Close lightbox"
             >
               <X className="h-5 w-5" />
             </button>
+            </Dialog.Close>
             <button
               className="absolute top-1/2 left-3 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-cream/25 text-cream transition-colors hover:border-saffron hover:text-saffron md:left-8"
               onClick={(e) => {
@@ -190,9 +197,11 @@ export default function Gallery() {
                 <p className="mt-1 font-display text-xl text-cream italic">{PHOTOS[index].caption}</p>
               </figcaption>
             </motion.figure>
-          </motion.div>
+          </Dialog.Content>
+          </>
         )}
-      </AnimatePresence>
+      </Dialog.Portal>
     </section>
+    </Dialog.Root>
   );
 }

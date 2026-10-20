@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Manrope } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { MotionConfig } from "framer-motion";
 
 const fraunces = Fraunces({
   variable: "--font-display",
@@ -52,8 +53,11 @@ export default function RootLayout({
       <body
         className={`${fraunces.variable} ${manrope.variable} antialiased bg-background text-foreground font-[family-name:var(--font-body)]`}
       >
-        {children}
-        <Toaster />
+        <a href="#main-content" className="sr-only fixed top-3 left-3 z-[100] rounded-lg bg-cream px-4 py-3 font-semibold text-espresso focus:not-sr-only">Skip to content</a>
+        <MotionConfig reducedMotion="user">
+          {children}
+          <Toaster />
+        </MotionConfig>
       </body>
     </html>
   );

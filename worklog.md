@@ -1,5 +1,14 @@
 # Worklog
 
+## October 20, 2026 — Full website UAT and accessibility fixes
+
+- Completed live functional UAT against the phone-only release; detailed results and remaining operational acceptance steps are in docs/UAT-2026-10-20.md.
+- Fixed gallery Escape/focus containment and return using the existing Radix dialog dependency; added keyboard photo navigation. Fixed mobile menu Escape/focus return. Added skip-to-content and reduced-motion support.
+- Rebuilt and published release `odbiryani-2026-10-20-uat-accessibility`, Netlify deploy `6ad7b3a67df5324369c1551c`, ready at 18:32 UTC. Both the Netlify hostname and Netlify-reported custom domain https://onedishbiryani.com return the new marker and approved call target.
+- Final live browser checks passed: all four prices, six quantity cases, availability, pickup/delivery, navigation, gallery keyboard behavior, loaded images, skip-link focus, and no reported console warnings/errors. Eight viewport configurations had no horizontal overflow (320–1440px plus landscape).
+- Public HTTP UAT: 30 passed, zero failed, 18 assets checked. Six unit tests, ESLint, production build/TypeScript, exported contract and diff checks passed. Evidence under ignored .netlify/uat/; reusable public runner scripts/uat-http.cjs added.
+- No calls, payments, or customer submissions were made/read/changed. Next operational acceptance: real iPhone Safari and receiving-phone check; confirm payment recipient details privately; supply delivery origin/mileage policy/fee schedule if automatic delivery pricing is wanted. Physical device sharing/offline/PWA capabilities are not certified by this UAT.
+
 ## October 20, 2026 — Approved phone number and pickup/payment release
 
 - User supplied and approved the public order number +1 (770) 294-7145. Configured display and call links as `tel:+17702947145`; no owner name, public email, pickup address, or payment handle is published.

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { Menu, X, ShoppingBag, Phone } from "lucide-react";
 import { ORDER_PHONE_DISPLAY, getOrderPhoneHref } from "@/lib/order-contact";
@@ -14,6 +14,7 @@ export default function Navbar() {
   const phoneHref = getOrderPhoneHref(ORDER_PHONE_DISPLAY);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement | null>(null);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 26, mass: 0.4 });
 
@@ -23,6 +24,18 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      setOpen(false);
+      menuButton.current?.focus();
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [open]);
 
   return (
     <>
@@ -84,10 +97,12 @@ export default function Navbar() {
               {phoneHref ? "Call to order" : "Plan a Meal"}
             </a>
             <button
+              ref={menuButton}
               onClick={() => setOpen(!open)}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-saffron/30 text-cream lg:hidden"
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
+              aria-controls="mobile-navigation"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -98,6 +113,7 @@ export default function Navbar() {
         <AnimatePresence>
           {open && (
             <motion.div
+              id="mobile-navigation"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
