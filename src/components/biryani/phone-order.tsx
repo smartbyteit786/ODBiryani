@@ -1,9 +1,10 @@
 "use client";
 
-import { useSyncExternalStore, useState, useRef } from "react";
+import { useEffect, useSyncExternalStore, useState, useRef } from "react";
 import { Check, MessageCircle, Copy, ShoppingBag, Truck } from "lucide-react";
 import { MEAL_PACKAGES, DELIVERY_RADIUS_MILES, getFoodPrice } from "@/lib/meal-pricing";
 import { ORDER_PHONE_DISPLAY, getOrderTextHref, getLocalDateMinimum, getBookingDeposit } from "@/lib/order-contact";
+import DeliveryAddress, { type DeliverySelection } from "@/components/biryani/delivery-address";
 
 const subscribeToLocalDay = (onChange: () => void) => {
   const timer = window.setInterval(onChange, 60000);
@@ -24,9 +25,21 @@ export default function PhoneOrder() {
   const [minimumDate, iosValue] = useSyncExternalStore(subscribeToLocalDay, getBrowserSettings, getServerSettings).split("|");
   const ios = iosValue === "true";
   const [copyStatus, setCopyStatus] = useState("");
+  const [delivery, setDelivery] = useState<DeliverySelection>({ address: "", quote: null });
+  const [deliveryError, setDeliveryError] = useState("");
+  useEffect(() => {
+    if (!delivery.quote) return;
+    const timer = setTimeout(() => {
+      setDelivery(current => ({ ...current, quote: null }));
+      setDeliveryError("Your delivery quote expired. Please check the fee again.");
+    }, Math.max(0, delivery.quote.expiresAt - Date.now()));
+    return () => clearTimeout(timer);
+  }, [delivery.quote]);
   const planner = useRef<HTMLFormElement | null>(null);
   const dateValid = !!requestedDate && requestedDate >= getLocalDateMinimum();
   const ready = quantityValid && dateValid && !!requestedTime;
+  const deliveryQuote = delivery.quote && delivery.quote.expiresAt > Date.now() ? delivery.quote : null;
+  const total = foodPrice === null || (fulfillment === "delivery" && !deliveryQuote) ? null : foodPrice + (fulfillment === "delivery" ? deliveryQuote!.feeCents / 100 : 0);
   const money = (amount: number) => amount.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2, minimumFractionDigits: amount % 1 ? 2 : 0 });
   const message = [
     "Hi ODB! I'd like to request chicken biryani.",
@@ -35,11 +48,18 @@ export default function PhoneOrder() {
     `Preferred time: ${requestedTime || "Please confirm"}`,
     `Option: ${fulfillment === "pickup" ? "Pickup" : "Delivery within 5 miles (route charge to confirm)"}`,
     `Meal price: ${foodPrice === null ? "Please quote" : money(foodPrice)}`,
+    ...(fulfillment === "delivery" ? [`Delivery address: ${delivery.address}`, `Delivery fee estimate: ${deliveryQuote ? money(deliveryQuote.feeCents / 100) : "Please confirm"}`] : []),
+    ...(total !== null ? [`Order total estimate: ${money(total)}`, `50% booking deposit estimate: ${money(getBookingDeposit(total))}`] : []),
     "Please confirm availability, final total, and the 50% booking deposit before I pay.",
   ].join("\n");
   const phoneHref = getOrderTextHref(ORDER_PHONE_DISPLAY, message, ios);
   const validate = () => {
     if (!planner.current?.reportValidity()) return false;
+    if (fulfillment === "delivery" && (!deliveryQuote || deliveryQuote.expiresAt <= Date.now())) {
+      setDeliveryError("Please check your delivery fee before texting. If your quote has expired, check it again.");
+      document.getElementById("delivery-address")?.focus();
+      return false;
+    }
     return ready;
   };
   const copyOrder = async () => {
@@ -94,11 +114,13 @@ export default function PhoneOrder() {
                 { key: "pickup", label: "Pickup", detail: "No delivery charge", icon: ShoppingBag },
                 { key: "delivery", label: "Delivery", detail: `Within ${DELIVERY_RADIUS_MILES} miles · extra charge`, icon: Truck },
               ] as const).map((option) => <label key={option.key} className="relative cursor-pointer">
-                <input type="radio" name="fulfillment" value={option.key} checked={fulfillment === option.key} onChange={() => setFulfillment(option.key)} className="peer sr-only" />
+                <input type="radio" name="fulfillment" value={option.key} checked={fulfillment === option.key} onChange={() => { setFulfillment(option.key); setDelivery({ address: "", quote: null }); setDeliveryError(""); }} className="peer sr-only" />
                 <span className="flex min-h-24 items-center gap-3 rounded-xl border border-espresso/20 bg-white p-4 transition peer-checked:border-ember peer-checked:bg-ember/5 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ember hover:border-ember"><option.icon className="h-6 w-6 shrink-0 text-ember" aria-hidden="true" /><span><span className="block text-lg font-bold">{option.label}</span><span className="mt-1 block text-sm text-espresso/70">{option.detail}</span></span><span className={`ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full border ${fulfillment === option.key ? "border-ember bg-ember text-white" : "border-espresso/25"}`} aria-hidden="true">{fulfillment === option.key && <Check className="h-4 w-4" />}</span></span>
               </label>)}
             </div>
             <p className="mt-3 text-sm leading-relaxed text-espresso/70" aria-live="polite">{fulfillment === "pickup" ? "We’ll share the pickup location and confirm a time by text after your order is confirmed. There is no delivery charge for pickup." : `We deliver within ${DELIVERY_RADIUS_MILES} miles of our kitchen. The extra charge depends on your address and delivery route. We’ll confirm the charge before you place your order.`}</p>
+            {fulfillment === "delivery" && <DeliveryAddress onChange={(selection) => { setDelivery(selection); setDeliveryError(""); }} />}
+            {deliveryError && <p role="alert" className="mt-3 text-sm font-semibold text-ember">{deliveryError}</p>}
           </fieldset>
 
           <div>
@@ -110,8 +132,9 @@ export default function PhoneOrder() {
           <div className="border-t border-espresso/15 pt-6">
             <div className="space-y-3" aria-live="polite" aria-atomic="true">
               <div className="flex items-center justify-between gap-4 text-base font-semibold"><span>Meal price</span><span>{foodPrice === null ? "Confirm by text" : `$${foodPrice}`}</span></div>
-              <div className="flex items-center justify-between gap-4 text-sm text-espresso/70"><span>{fulfillment === "pickup" ? "Pickup" : "Delivery charge"}</span><span className="text-right">{fulfillment === "pickup" ? "No delivery charge" : "Extra · confirmed by route"}</span></div>
-              <div className="flex items-center justify-between gap-4 text-sm font-semibold"><span>50% booking deposit</span><span className="text-right">{foodPrice === null ? "After quote" : fulfillment === "delivery" ? "After final total" : `${money(getBookingDeposit(foodPrice))} on meal price`}</span></div>
+              <div className="flex items-center justify-between gap-4 text-sm text-espresso/70"><span>{fulfillment === "pickup" ? "Pickup" : "Delivery charge"}</span><span className="text-right">{fulfillment === "pickup" ? "No delivery charge" : deliveryQuote ? money(deliveryQuote.feeCents / 100) : "Check your address"}</span></div>
+              <div className="flex items-center justify-between gap-4 text-base font-semibold"><span>Estimated total</span><span>{total === null ? "After quote" : money(total)}</span></div>
+              <div className="flex items-center justify-between gap-4 text-sm font-semibold"><span>50% booking deposit</span><span className="text-right">{total === null ? "After final total" : money(getBookingDeposit(total))}</span></div>
             </div>
             <p className="mt-4 text-sm leading-relaxed text-espresso/65">{people && quantityValid && foodPrice === null ? "For this group size, we’ll quote your meal by text. " : ""}Orders are confirmed by text after availability and your deposit are confirmed. For delivery, we confirm your meal price and route charge before payment.</p>
             {phoneHref ? <>

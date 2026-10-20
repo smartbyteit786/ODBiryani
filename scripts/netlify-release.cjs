@@ -16,6 +16,7 @@ Object.assign(state,{siteId:site.id,url:site.ssl_url||site.url});fs.writeFileSyn
 await api('/sites/'+site.id,'PATCH',{processing_settings:{...site.processing_settings,ignore_html_forms:false}});console.log(JSON.stringify(state));return;
 }
 if(action==='deploy'){
+if(fs.existsSync('netlify/functions/delivery-quote.mjs'))throw new Error('This site now needs server functions. The static ZIP publisher cannot deploy them. Use a functions-aware Netlify build/deploy after private delivery settings are configured.');
 const release=JSON.parse(fs.readFileSync('out/release.json','utf8'));
 if(release.orderHandling==='Text'&&!/href="sms:\+?\d{7,15}/.test(fs.readFileSync('out/index.html','utf8')))throw new Error('An approved public text order number is required before this text-only release can deploy.');
 const res=await fetch('https://api.netlify.com/api/v1/sites/'+state.siteId+'/deploys',{method:'POST',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/zip'},body:fs.readFileSync('release.zip'),signal:AbortSignal.timeout(120000)});if(!res.ok)throw new Error('Deploy status '+res.status+' '+(await res.text()).slice(0,300));const d=await res.json();state.deployId=d.id;fs.writeFileSync('release-state.json',JSON.stringify(state));console.log(JSON.stringify({deployId:d.id,state:d.state,url:d.ssl_url||d.url}));return;

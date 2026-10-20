@@ -1,5 +1,14 @@
 # Worklog
 
+## October 20, 2026 — Private delivery quote draft (not deployed)
+
+- User requested delivery address capture and automatic route-based delivery fees without publishing the kitchen address. Created branch `codex/private-delivery-quotes` from the deployed text/calendar/deposit release.
+- Added conditional address/unit fields, explicit fee check, loading/error feedback, address-edit and expiry invalidation, delivery total/50% deposit updates and destination in the text draft. Pickup remains address-free. No external request is made while typing.
+- Added server-only Google Routes adapter and Netlify function. Origin/key/rate are read from private runtime settings; only fee/currency/expiry are returned. Destination/route validation, same-origin POST, input limit, timeout, no-store responses and declared eight-per-minute platform rate limit included. Provider errors are sanitized. No database or address logging added.
+- Sixteen tests passed with mocked map responses; production build/TypeScript passed. Function deployment/provider acceptance and browser UAT are outstanding. No private location/key was supplied or read, and no real routing request was sent.
+- Asked owner for delivery price formula and driving-distance versus straight-line five-mile policy. Response pending. Draft implements driving-distance limit only; do not activate before that policy is confirmed. Required private origin, owner-entered Google Routes API key and rate settings are documented in docs/private-delivery-setup.md.
+- Existing static ZIP deploy helper now refuses publication when this function is present. Next: configure private runtime settings, use a functions-aware protected preview, validate actual route/fee/privacy/error paths and rate-limit deployment evidence, then publish and run live UAT. Current production continues to use manual delivery fee confirmation.
+
 ## October 20, 2026 — Text-only requests, calendar and 50% deposit
 
 - Owner requested text-only ordering for privacy, requested date/time, and approved a 50% booking deposit. Replaced active call links with text drafting and planner navigation. Public number stays +1 (770) 294-7145; no owner name or private address added.
