@@ -1,5 +1,13 @@
 # Worklog
 
+## October 20, 2026 — Customer chooses chicken cut
+
+- Owner clarified that bone-in versus boneless is the customer's choice. Added a required, unselected-by-default radio choice before the requested date. The selected cut appears in the summary and prepared order text.
+- Listed package prices remain the owner's existing prices. No new cut surcharge or cost-model price is published. UI and SMS explicitly ask to confirm the selected cut's final price and deposit before payment. The private costing report remains a planning estimate, not an approved menu schedule.
+- Shipped this independently on main so it does not depend on private routing configuration. Release `odbiryani-2026-10-20-chicken-choice`; Netlify deploy `6ad7c8d9c5b0915f81dcb514` ready at 20:02 UTC on https://onedishbiryani.com.
+- Production build/TypeScript, exported contract, ESLint and live release checks passed. A temporary ignored local preview helper initially caused lint errors; removed that unused helper, then full lint passed. Live mobile browser verified missing-cut validation, both cut selections in SMS drafts, mutual exclusivity, and no horizontal overflow at 390px. No message was sent. Screenshot .netlify/uat/chicken-choice.png.
+- Private delivery calculator remains on `codex/private-delivery-quotes`, not deployed. Merge updated main into that draft before release so customer cut selection is retained. Private origin/key and owner-approved delivery/cut-specific prices remain outstanding; earlier assistant-suggested costs/rates are not approved public prices.
+
 ## October 20, 2026 — Text-only requests, calendar and 50% deposit
 
 - Owner requested text-only ordering for privacy, requested date/time, and approved a 50% booking deposit. Replaced active call links with text drafting and planner navigation. Public number stays +1 (770) 294-7145; no owner name or private address added.

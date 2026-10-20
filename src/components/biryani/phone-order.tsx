@@ -15,6 +15,7 @@ const getServerSettings = () => "|false";
 
 export default function PhoneOrder() {
   const [people, setPeople] = useState("");
+  const [chickenCut, setChickenCut] = useState<"" | "bone-in" | "boneless">("");
   const [fulfillment, setFulfillment] = useState<"pickup" | "delivery">("pickup");
   const count = Number(people);
   const foodPrice = getFoodPrice(count);
@@ -26,15 +27,17 @@ export default function PhoneOrder() {
   const [copyStatus, setCopyStatus] = useState("");
   const planner = useRef<HTMLFormElement | null>(null);
   const dateValid = !!requestedDate && requestedDate >= getLocalDateMinimum();
-  const ready = quantityValid && dateValid && !!requestedTime;
+  const ready = quantityValid && !!chickenCut && dateValid && !!requestedTime;
   const money = (amount: number) => amount.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2, minimumFractionDigits: amount % 1 ? 2 : 0 });
   const message = [
     "Hi ODB! I'd like to request chicken biryani.",
     `People: ${people || "Please confirm"}`,
+    `Chicken cut: ${chickenCut === "bone-in" ? "Bone-in" : chickenCut === "boneless" ? "Boneless" : "Please choose"}`,
     `Requested date: ${requestedDate || "Please confirm"}`,
     `Preferred time: ${requestedTime || "Please confirm"}`,
     `Option: ${fulfillment === "pickup" ? "Pickup" : "Delivery within 5 miles (route charge to confirm)"}`,
-    `Meal price: ${foodPrice === null ? "Please quote" : money(foodPrice)}`,
+    `Listed meal price: ${foodPrice === null ? "Please quote" : money(foodPrice)}`,
+    "Please confirm the price for my selected chicken cut before I pay.",
     "Please confirm availability, final total, and the 50% booking deposit before I pay.",
   ].join("\n");
   const phoneHref = getOrderTextHref(ORDER_PHONE_DISPLAY, message, ios);
@@ -78,6 +81,20 @@ export default function PhoneOrder() {
             </div>
           </div>
 
+          <fieldset aria-describedby="chicken-cut-help">
+            <legend className="mb-4 font-display text-2xl font-semibold">How would you like your chicken?</legend>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {([
+                { value: "bone-in", label: "Bone-in", detail: "Chicken pieces with the bone" },
+                { value: "boneless", label: "Boneless", detail: "Chicken pieces with the bone removed" },
+              ] as const).map((cut) => <label key={cut.value} className="relative cursor-pointer">
+                <input type="radio" name="chickenCut" value={cut.value} required checked={chickenCut === cut.value} onChange={() => setChickenCut(cut.value)} className="peer sr-only" />
+                <span className="flex min-h-24 items-center justify-between gap-3 rounded-xl border border-espresso/20 bg-white p-4 transition peer-checked:border-ember peer-checked:bg-ember/5 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ember"><span><span className="block text-lg font-bold">{cut.label}</span><span className="mt-1 block text-sm text-espresso/70">{cut.detail}</span></span><span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border ${chickenCut === cut.value ? "border-ember bg-ember text-white" : "border-espresso/25"}`} aria-hidden="true">{chickenCut === cut.value && <Check className="h-4 w-4" />}</span></span>
+              </label>)}
+            </div>
+            <p id="chicken-cut-help" className="mt-3 text-sm leading-relaxed text-espresso/70">Choose one. We’ll confirm the price for your selected cut by text before payment.</p>
+          </fieldset>
+
           <fieldset className="space-y-4">
             <legend className="mb-4 flex items-center gap-3 font-display text-2xl font-semibold"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-espresso text-sm text-cream">2</span>When do you need it?</legend>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -109,11 +126,12 @@ export default function PhoneOrder() {
 
           <div className="border-t border-espresso/15 pt-6">
             <div className="space-y-3" aria-live="polite" aria-atomic="true">
-              <div className="flex items-center justify-between gap-4 text-base font-semibold"><span>Meal price</span><span>{foodPrice === null ? "Confirm by text" : `$${foodPrice}`}</span></div>
+              <div className="flex items-center justify-between gap-4 text-base font-semibold"><span>Listed meal price</span><span>{foodPrice === null ? "Confirm by text" : `$${foodPrice}`}</span></div>
+              <div className="flex items-center justify-between gap-4 text-sm text-espresso/70"><span>Chicken cut</span><span>{chickenCut === "bone-in" ? "Bone-in" : chickenCut === "boneless" ? "Boneless" : "Choose above"}</span></div>
               <div className="flex items-center justify-between gap-4 text-sm text-espresso/70"><span>{fulfillment === "pickup" ? "Pickup" : "Delivery charge"}</span><span className="text-right">{fulfillment === "pickup" ? "No delivery charge" : "Extra · confirmed by route"}</span></div>
               <div className="flex items-center justify-between gap-4 text-sm font-semibold"><span>50% booking deposit</span><span className="text-right">{foodPrice === null ? "After quote" : fulfillment === "delivery" ? "After final total" : `${money(getBookingDeposit(foodPrice))} on meal price`}</span></div>
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-espresso/65">{people && quantityValid && foodPrice === null ? "For this group size, we’ll quote your meal by text. " : ""}Orders are confirmed by text after availability and your deposit are confirmed. For delivery, we confirm your meal price and route charge before payment.</p>
+            <p className="mt-4 text-sm leading-relaxed text-espresso/65">{people && quantityValid && foodPrice === null ? "For this group size, we’ll quote your meal by text. " : ""}The amounts shown use our listed meal prices. We’ll confirm the price for your selected cut, any delivery charge, and your 50% deposit by text before payment.</p>
             {phoneHref ? <>
               <a href={phoneHref} onClick={(event) => { if (!validate()) event.preventDefault(); }} className="mt-6 flex min-h-14 w-full items-center justify-center gap-3 rounded-full bg-ember px-6 py-4 text-base font-bold text-white transition hover:bg-[#a94025] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ember"><MessageCircle className="h-5 w-5" aria-hidden="true" />Text my order</a>
               <p className="mt-4 text-center text-sm font-semibold">Text only · <a href={getOrderTextHref(ORDER_PHONE_DISPLAY) || "#order"} className="underline underline-offset-4">{ORDER_PHONE_DISPLAY}</a></p>
