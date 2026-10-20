@@ -1,5 +1,17 @@
 # Worklog
 
+## October 20, 2026 — Pickup, payments, and phone-only orders (awaiting number)
+
+- User requested pickup and delivery options, route-based extra delivery charges, Zelle/Apple Cash/Cash App, phone-only ordering contact, and no visible owner name.
+- Prepared a new phone-order planner: approved meal prices, minimum four people, chicken available with beef/lamb coming soon, pickup selected by default with no delivery charge, delivery within five miles with an extra route charge confirmed by phone, and payment-method badges. Pickup location/time and payment details are shared privately.
+- Removed active web collection of customer name, phone, and address from this new flow. Call links replace order submission once a number is provided. Legacy form files and records are preserved; no records or notifications were deleted or changed.
+- Public order phone is missing. Asked the user which number to publish; response pending. No placeholder/fake number was used. `ORDER_PHONE_DISPLAY` is empty in src/lib/order-contact.ts, and the deploy utility blocks this phone-only release unless its built HTML contains a valid call link. Do not deploy it while missing the number.
+- Six unit checks, full ESLint, final production build including TypeScript, and the updated built-page contract check passed. Final navbar call-link wiring passed targeted lint and was included in the final build. No physical call or payment was initiated.
+- Owner name is not included in page copy, metadata, contact details, or payment handles. Payment apps control their enrolled recipient names; website privacy does not hide those names in a payment app.
+- Delivery origin and exact route-fee schedule are also still missing. No automatic calculation or route approval is claimed.
+- Live site remains on the prior pricing/delivery request version until the approved public order number is provided.
+- Draft is being saved on `codex/pickup-phone-orders`, separate from production `main`. Next: set the supplied number in src/lib/order-contact.ts, rebuild and verify rendered call links, merge/push to main, package/deploy, then verify the live pickup/delivery controls and correct tel links without placing a call or transferring money.
+
 ## October 20, 2026 — Published prices and five-mile delivery
 
 - User authorized publishing the four approved food prices and specified a five-mile service radius with delivery charged separately by mileage. This supersedes the previous no-public-pricing direction.

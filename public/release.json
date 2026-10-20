@@ -1,1 +1,1 @@
-{"release":"odbiryani-2026-10-20-pricing-delivery","orderHandling":"Netlify Forms","pricing":"Published food prices; separate delivery quote","minimumPeople":4,"availableMeat":"chicken","deliveryRadiusMiles":5}
+{"release":"odbiryani-2026-10-20-phone-pickup-payments","orderHandling":"Phone","pricing":"Published food prices; route-based delivery charge confirmed by phone","minimumPeople":4,"availableMeat":"chicken","deliveryRadiusMiles":5,"pickupAvailable":true,"paymentMethods":["Zelle","Apple Cash","Cash App"]}

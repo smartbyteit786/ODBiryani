@@ -8,8 +8,8 @@ export default function Welcome() {
         <h1 id="welcome-heading" className="max-w-3xl font-display text-[clamp(2.4rem,7.5vw,5.5rem)] leading-[1.08] font-semibold">Welcome to ODB.<br /><span className="italic text-saffron">Make yourself at home.</span></h1>
         <p className="mt-6 max-w-lg text-base leading-relaxed text-cream/85 md:text-lg">Fresh, home-cooked chicken biryani, prepared with care. For family dinners and a table full of friends.</p>
         <a href="#order" className="mt-8 inline-flex min-h-14 items-center justify-center rounded-full bg-saffron px-8 py-4 text-base font-bold text-espresso transition hover:bg-saffron-bright focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-saffron">Let&apos;s plan your meal</a>
-        <p className="mt-4 text-sm text-cream/80">For 4 people or more · Delivery within 5 miles</p>
-        <p className="mt-2 text-sm text-cream/70">Delivery charged separately by distance. Beef and lamb coming soon.</p>
+        <p className="mt-4 text-sm text-cream/80">For 4 people or more · Pickup or local delivery</p>
+        <p className="mt-2 text-sm text-cream/70">Delivery within 5 miles, charged separately by route. Beef and lamb coming soon.</p>
       </div>
     </section>
   );

@@ -2,8 +2,10 @@
 
 
 import { Heart } from "lucide-react";
+import { ORDER_PHONE_DISPLAY, getOrderPhoneHref } from "@/lib/order-contact";
 
 export default function Footer() {
+  const phoneHref = getOrderPhoneHref(ORDER_PHONE_DISPLAY);
   return (
     <footer className="relative overflow-hidden border-t border-saffron/15 bg-[#0d0804] pb-8 pt-16 text-cream">
       <div className="pointer-events-none absolute -top-32 left-1/2 h-64 w-[700px] -translate-x-1/2 rounded-full bg-saffron/8 blur-[100px]" aria-hidden="true" />
@@ -53,8 +55,8 @@ export default function Footer() {
           {/* contact */}
           <div>
             <h3 className="font-display text-base font-semibold text-saffron">Planning a meal?</h3>
-            <p className="mt-4 text-sm leading-relaxed text-cream/60">Chicken biryani for 4 people or more. Delivery within 5 miles of our kitchen, charged separately by distance. We confirm your final total before booking. Beef and lamb coming soon.</p>
-            <a href="#order" className="mt-4 inline-block text-sm text-saffron underline underline-offset-4">Plan your meal</a>
+            <p className="mt-4 text-sm leading-relaxed text-cream/60">Pickup available with no delivery charge. Delivery within 5 miles costs extra based on your route. Pay with Zelle, Apple Cash, or Cash App after we confirm your total.</p>
+            {phoneHref ? <a href={phoneHref} className="mt-4 inline-block text-base font-semibold text-saffron underline underline-offset-4">{ORDER_PHONE_DISPLAY}</a> : <a href="#order" className="mt-4 inline-block text-sm text-saffron underline underline-offset-4">Plan your meal</a>}
           </div>
         </div>
 

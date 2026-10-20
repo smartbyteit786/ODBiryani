@@ -21,8 +21,14 @@ These food prices are now published. Delivery is additional. Other guest counts 
 
 Serve addresses within a five-mile radius of the kitchen. Delivery fees depend on distance and are separate from the food price. Check the customer's address and confirm the fee, final total, and delivery time before accepting the request. Decline delivery outside the service area.
 
-The kitchen starting point, mileage measurement basis, and fee schedule have not been supplied. The website collects the address and explains the policy; it does not calculate mileage, automatically approve an address, or invent delivery rates. Radius eligibility and the fee are manually confirmed by the owner until these details are configured. Do not publish a private kitchen address without permission.
+Pickup is available without a delivery charge. Share the pickup location and time privately after confirming the order. Delivery costs extra according to the address and route. The kitchen starting point, mileage measurement basis, and fee schedule have not been supplied. Do not calculate or invent delivery rates. Radius eligibility, route, and charge are confirmed by phone before booking. Do not publish a private kitchen address.
 
-Netlify form requests include the guest count, chicken selection, customer name/phone, delivery address, food subtotal or quote status, delivery-fee status, notes, and reference. Treat all submitted amounts as untrusted client input and verify against the approved schedule. No payment is taken. Requests are stored in the Netlify Forms dashboard; notification hooks were checked and none were configured. An approved recipient is needed before email alerts are enabled.
+The latest direction is phone-only ordering with ODB branding and no owner name or public email. Customers plan the meal online, choose pickup/delivery, then call the approved public number. That number has not yet been supplied; the phone-only build must not replace the live workflow before it is supplied. Existing Netlify request records are preserved, but the new page does not submit or collect customer details through a web form.
+
+## Payments and identity
+
+Accepted methods: Zelle, Apple Cash, Cash App. Confirm the final amount and share payment details privately by phone. No recipient handles, account identifiers, or owner name are published. Do not assume the order number is the registered payment number. No payment is collected or verified by the website.
+
+The website can omit a personal name; the bank/payment app controls names shown during payment. For example, Bank of America documents an enrolled first/last or business name on Zelle's recipient confirmation screen: https://www.bankofamerica.com/online-banking/zelle-faqs/?sgm=adv. Website branding cannot guarantee anonymity within payment apps.
 
 No current inflation percentage or approved margin has been supplied. Do not automatically change the approved prices: review costs and obtain owner approval before updating this schedule. Legacy prices in the imported source are superseded by this schedule. Verify minimum quantity, availability, final charges, service area, and fulfillment details with the customer. Form submissions are requests, not accepted orders.

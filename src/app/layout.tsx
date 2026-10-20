@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: "ODB — One Dish Biryani",
   applicationName: "ODB — One Dish Biryani",
   description:
-    "Clean, fresh, home-cooked chicken biryani for groups of 4 or more. Tell ODB how many people and request a personal quote. Beef and lamb coming soon.",
+    "Home-cooked chicken biryani for 4 people or more. Order by phone for pickup or delivery within 5 miles. Delivery costs extra by route. Zelle, Apple Cash, and Cash App accepted.",
   keywords: [
     "biryani",
     "homemade biryani",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: "ODB — One Dish Biryani",
     siteName: "ODB — One Dish Biryani",
     description:
-      "Home-cooked chicken biryani for 4 people or more. Request a personal quote. Beef and lamb coming soon.",
+      "Home-cooked chicken biryani. Order by phone for pickup or local delivery. Zelle, Apple Cash, and Cash App accepted. Beef and lamb coming soon.",
     type: "website",
   },
 };
