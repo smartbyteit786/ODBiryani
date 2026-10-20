@@ -1,5 +1,11 @@
 # Worklog
 
+## October 20, 2026 — Private delivery origin configured
+
+- Owner supplied the kitchen origin for delivery routing. Stored it in Netlify site `odbiryani` as `ODB_DELIVERY_ORIGIN`, marked secret, restricted to Functions scope and production context. Verified the saved security metadata without printing the value. No address was added to Git, application source, build output, or public website. Temporary value-free setup helper removed afterward.
+- This config change does not activate automatic quotes or publish a new site release. The delivery calculator remains on `codex/private-delivery-quotes`; main still serves the tested chicken-choice release. Origin has not been geocoded or sent to Google.
+- Next: owner-entered `GOOGLE_ROUTES_API_KEY` in private Netlify settings; final delivery-rate and driving-mile policy approval; merge current main into delivery branch; functions-aware deployment and route/privacy acceptance testing. Latest cost-model suggestion was $5 base + $3 per one-way driving mile, maximum five driving miles; it remains a suggestion, not a configured or published rate. Do not record the private origin value in continuity documents.
+
 ## October 20, 2026 — Customer chooses chicken cut
 
 - Owner clarified that bone-in versus boneless is the customer's choice. Added a required, unselected-by-default radio choice before the requested date. The selected cut appears in the summary and prepared order text.
