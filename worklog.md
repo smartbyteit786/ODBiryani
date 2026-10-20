@@ -6,6 +6,7 @@
 - Header and footer now lead with ODB and display One Dish Biryani beneath it. Page title, application name, and social sharing metadata use ODB — One Dish Biryani.
 - Existing menu, photos, order handling, GitHub repository, and Netlify URL are retained.
 - Release marker: `odbiryani-2026-10-20-brand-odb`.
+- Validation: targeted lint and production build (including TypeScript) passed. Source commit `85cf32e` pushed; Netlify deploy `6ad6f06c21220e3988d34261` reached ready. Live browser confirmed ODB in the header/footer and ODB — One Dish Biryani as the page title. Preview saved locally under `.netlify/screenshots/odb-brand.png`.
 
 ## October 20, 2026 — GitHub and Netlify release
 
