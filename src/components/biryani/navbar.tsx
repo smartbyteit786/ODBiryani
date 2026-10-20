@@ -52,11 +52,11 @@ export default function Navbar() {
               </svg>
             </span>
             <span className="leading-tight">
-              <span className="block font-display text-lg font-semibold tracking-wide text-cream">
-                One Dish
+              <span className="block font-display text-2xl font-semibold tracking-[0.12em] text-cream">
+                ODB
               </span>
-              <span className="block text-[10px] font-bold tracking-[0.42em] text-saffron uppercase">
-                Biryani
+              <span className="block text-[9px] font-bold tracking-[0.14em] text-saffron uppercase">
+                One Dish Biryani
               </span>
             </span>
           </a>

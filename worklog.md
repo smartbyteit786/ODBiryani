@@ -1,5 +1,12 @@
 # Worklog
 
+## October 20, 2026 — ODB brand clarification
+
+- User specified `ODB (one dish biryani)` as the brand name.
+- Header and footer now lead with ODB and display One Dish Biryani beneath it. Page title, application name, and social sharing metadata use ODB — One Dish Biryani.
+- Existing menu, photos, order handling, GitHub repository, and Netlify URL are retained.
+- Release marker: `odbiryani-2026-10-20-brand-odb`.
+
 ## October 20, 2026 — GitHub and Netlify release
 
 - User authorized commit, push, and deployment to Netlify.

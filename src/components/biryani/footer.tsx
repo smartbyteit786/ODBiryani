@@ -20,9 +20,9 @@ export default function Footer() {
                 </svg>
               </span>
               <div>
-                <p className="font-display text-xl font-semibold">One Dish Biryani</p>
-                <p className="text-[10px] font-extrabold tracking-[0.4em] text-saffron uppercase">
-                  From our kitchen to your table
+                <p className="font-display text-2xl font-semibold tracking-[0.12em]">ODB</p>
+                <p className="text-[10px] font-extrabold tracking-[0.14em] text-saffron uppercase">
+                  One Dish Biryani
                 </p>
               </div>
             </div>

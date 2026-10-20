@@ -1,4 +1,4 @@
-# One Dish Biryani
+# ODB — One Dish Biryani
 
 Next.js website with Tailwind CSS, Framer Motion, and Netlify Forms.
 

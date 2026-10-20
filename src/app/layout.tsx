@@ -17,7 +17,8 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "One Dish Biryani — Homemade. One Pot. Pure Saffron.",
+  title: "ODB — One Dish Biryani",
+  applicationName: "ODB — One Dish Biryani",
   description:
     "Homemade chicken, beef, and lamb biryani with olive oil and real saffron. Choose a bowl for yourself or a tray to share.",
   keywords: [
@@ -33,7 +34,8 @@ export const metadata: Metadata = {
     "biryani catering",
   ],
   openGraph: {
-    title: "One Dish Biryani — One Pot. Pure Saffron.",
+    title: "ODB — One Dish Biryani",
+    siteName: "ODB — One Dish Biryani",
     description:
       "Homemade biryani for your table. Browse chicken, beef, and lamb bowls and sharing trays.",
     type: "website",
