@@ -3,9 +3,10 @@ const fs=require('node:fs');
 const state=JSON.parse(fs.readFileSync('release-state.json','utf8'));
 async function main(){
   const results=[];
-  for(const [route,expected] of [['/','Call to order'],['/release.json','odbiryani-2026-10-20-phone-pickup-payments'],['/images/pot-fresh.jpg',null]]){
+  for(const [route,expected] of [['/',['Call to order','tel:+17702947145','+1 (770) 294-7145','Zelle','Apple Cash','Cash App']],['/release.json',['odbiryani-2026-10-20-phone-pickup-payments']],['/images/pot-fresh.jpg',null]]){
     const r=await fetch(state.url+route,{signal:AbortSignal.timeout(20000)});
-    const ok=r.ok && (!expected || (await r.text()).includes(expected)) && r.headers.get('x-content-type-options')==='nosniff';
+    const body=expected ? await r.text() : '';
+    const ok=r.ok && (!expected || expected.every(value => body.includes(value))) && r.headers.get('x-content-type-options')==='nosniff';
     results.push({route,status:r.status,passed:ok});
   }
   console.log(JSON.stringify(results,null,2));

@@ -13,7 +13,7 @@ The production build is a static export in `out/`.
 - GitHub: https://github.com/smartbyteit786/ODBiryani
 - Netlify: https://odbiryani.netlify.app
 - Netlify site ID: `d9cc4ca2-0473-4f1f-93a2-afd761eec63c`
-- The current development update changes ordering to phone only. Set the owner-approved public number in `src/lib/order-contact.ts` before release. No owner name, payment handles, private pickup address, or customer contact form appears in the new page. The deployment script blocks publishing this phone-only build without a valid call link.
+- Ordering is phone only at **+1 (770) 294-7145**. The owner approved this public number; it is configured in `src/lib/order-contact.ts`. No owner name, payment handles, private pickup address, or customer contact form appears in the new page. The deployment script blocks publishing a phone-only build without a valid call link.
 - Customers can plan chicken biryani for four or more people, choose pickup or delivery, then call ODB. The four approved food prices are published; other sizes are confirmed by phone. Beef and lamb are coming soon.
 - Pickup has no delivery charge. Delivery is within five miles, with an additional charge confirmed from the address and route. The kitchen origin and fee schedule are still needed for automated calculations. Pickup location and time are shared privately when the order is confirmed.
 - Zelle, Apple Cash, and Cash App are listed as accepted payment methods. Payment details are shared privately; there is no payment integration or automatic verification. The order phone is not assumed to be the payment recipient identifier.

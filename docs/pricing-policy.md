@@ -23,7 +23,7 @@ Serve addresses within a five-mile radius of the kitchen. Delivery fees depend o
 
 Pickup is available without a delivery charge. Share the pickup location and time privately after confirming the order. Delivery costs extra according to the address and route. The kitchen starting point, mileage measurement basis, and fee schedule have not been supplied. Do not calculate or invent delivery rates. Radius eligibility, route, and charge are confirmed by phone before booking. Do not publish a private kitchen address.
 
-The latest direction is phone-only ordering with ODB branding and no owner name or public email. Customers plan the meal online, choose pickup/delivery, then call the approved public number. That number has not yet been supplied; the phone-only build must not replace the live workflow before it is supplied. Existing Netlify request records are preserved, but the new page does not submit or collect customer details through a web form.
+Ordering is phone only at the owner-approved public number **+1 (770) 294-7145**, with ODB branding and no owner name or public email. Customers plan the meal online, choose pickup/delivery, then call to confirm the order. Existing Netlify request records are preserved, but the new page does not submit or collect customer details through a web form.
 
 ## Payments and identity
 

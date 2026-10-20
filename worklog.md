@@ -1,5 +1,12 @@
 # Worklog
 
+## October 20, 2026 — Approved phone number and pickup/payment release
+
+- User supplied and approved the public order number +1 (770) 294-7145. Configured display and call links as `tel:+17702947145`; no owner name, public email, pickup address, or payment handle is published.
+- Completing the tested `codex/pickup-phone-orders` draft for production. Pickup has no delivery charge; delivery within five miles has an extra route charge confirmed by phone. Listed payment methods are Zelle, Apple Cash, and Cash App; payment details are shared privately and are not integrated or verified by the website.
+- Built-page checks now verify the exact approved number and all rendered call targets. Live verification checks phone, payment methods, release marker, images, and headers.
+- Final build/tests, merge to main, publication, and live pickup/delivery acceptance are pending below. No phone call or payment will be initiated during verification.
+
 ## October 20, 2026 — Pickup, payments, and phone-only orders (awaiting number)
 
 - User requested pickup and delivery options, route-based extra delivery charges, Zelle/Apple Cash/Cash App, phone-only ordering contact, and no visible owner name.

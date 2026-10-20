@@ -19,4 +19,7 @@ for (const method of ['Zelle', 'Apple Cash', 'Cash App']) assert(text.includes(m
 assert(text.includes('How to order') && text.includes('Call ODB'));
 assert(!html.includes('name="name"') && !html.includes('name="phone"') && !html.includes('name="deliveryAddress"'), 'Phone-only ordering must not collect customer details through the website');
 assert(!text.includes('Send my meal request'), 'Old web request button must not be visible');
+const callLinks = [...html.matchAll(/href="(tel:[^"]+)"/g)].map(match => match[1]);
+assert(callLinks.length >= 3 && callLinks.every(link => link === 'tel:+17702947145'), 'All order call links must use the approved ODB number');
+assert(text.includes('+1 (770) 294-7145'), 'Approved phone number must be visible');
 console.log('Ordering export passed: approved prices, minimum four, unavailable meats, pickup/delivery, payment methods, and phone-only flow.');
