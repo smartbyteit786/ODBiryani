@@ -13,6 +13,18 @@
 - Deployment and live form storage checks pending at initial commit; results will be recorded below.
 - This release uses a direct Netlify deployment. Automatic deployment on GitHub pushes is not configured. No order email notifications are configured or verified.
 
+### Live release verification
+
+- Initial source commit `212c89b` pushed to GitHub `main`.
+- Production deploy `6ad6ef7112437e787cd047f8` reached `ready`; live URL https://odbiryani.netlify.app.
+- Corrected Netlify form detection using `processing_settings.ignore_html_forms=false`; verified `use_forms=true`. Added `_headers` to the direct upload so security headers apply.
+- Public homepage, release marker, form definition, and kitchen photo returned HTTP 200 with expected content.
+- Browser review showed the real-photo homepage and confirmed lamb + party selection displays $149.99 and carries through to the request form.
+- Submitted one clearly labeled `RELEASE TEST - DO NOT FULFILL` request with reserved test contact data. The browser showed success reference `999EF2`; Netlify's aggregate submission count increased from 0 to 1.
+- Record-level submission inspection was blocked by automatic approval review because the API would fetch all submissions before filtering. No submission records were read. Aggregate form metadata and visible browser confirmation were used instead.
+- Live confirmation screenshot saved locally as `order-request-proof.png` (excluded from Git). Test request remains marked do not fulfill in Netlify; no deletion performed.
+- Next: confirm pricing/service details and configure an approved recipient for order notifications. Automatic GitHub deploys remain unconfigured; release scripts support direct publication using the operator's existing Netlify sign-in.
+
 ---
 Task ID: 1
 Agent: Main agent (Z.ai)
