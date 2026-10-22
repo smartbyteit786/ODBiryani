@@ -8,6 +8,7 @@ import { ORDER_PHONE_DISPLAY, getOrderTextHref } from "@/lib/order-contact";
 const LINKS = [
   { href: "#order", label: "Plan Your Meal" },
   { href: "#gallery", label: "Our Kitchen" },
+  { href: "#reviews", label: "Reviews" },
 ];
 
 export default function Navbar() {

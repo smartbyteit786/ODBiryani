@@ -42,6 +42,7 @@ export default function Footer() {
               {[
                 ["#order", "Plan Your Meal"],
                 ["#gallery", "Our Kitchen"],
+                ["#reviews", "Reviews"],
               ].map(([href, label]) => (
                 <li key={href}>
                   <a href={href} className="transition-colors hover:text-saffron">

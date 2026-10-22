@@ -1,5 +1,14 @@
 # Worklog
 
+## October 22, 2026 — Customer reviews prepared; publication blocked by Netlify access
+
+- Owner approved manual completed-order verification with private customer phone numbers. Added a styled reviews section after the kitchen gallery, navigation links, a truthful empty state, and a private name/order-phone/rating/review/consent form. No fake testimonials or public customer records were added.
+- Intake uses a distinct `odb-customer-review` Netlify form with a matching static definition, honeypot, validation, sending/error/receipt states and private publication consent. Nothing automatically publishes. Existing ordering and legacy forms are preserved; private routing work remains on its separate branch.
+- Public reviews are curated separately in src/data/customer-reviews.json (currently empty). Added publication checks rejecting extra/private fields, common phone/email content, unverified entries and duplicates; low ratings are accepted. One review per completed order requires the documented manual order/register check. See docs/customer-reviews.md for the exact owner workflow; no automatic SMS verification or notifications were activated.
+- Eleven unit tests, full ESLint, production build/TypeScript, publication contract and existing ordering export check passed. Additional review-export contract checks placement, field/consent wiring and separation from ordering. Build and deployment run publication privacy checks.
+- Netlify upload was attempted once and rejected with HTTP 401 “Access Denied: User does not have access.” Saved config has one selected user/token and no environment override; no alternate credential was selected, no customer records fetched, and no publication occurred. Live site remains the October 20 chicken-choice release. New draft marker is odbiryani-2026-10-22-customer-reviews.
+- Work saved on codex/customer-reviews so production main stays consistent. Next: restore Netlify access to project odbiryani, deploy the built review release, verify both form definitions/aggregate counts, then browser-test required fields/rating/consent/mobile/error/success paths and one marked synthetic intake (never publish it). Owner matching and public review publication remain manual.
+
 ## October 20, 2026 — Private delivery origin configured
 
 - Owner supplied the kitchen origin for delivery routing. Stored it in Netlify site `odbiryani` as `ODB_DELIVERY_ORIGIN`, marked secret, restricted to Functions scope and production context. Verified the saved security metadata without printing the value. No address was added to Git, application source, build output, or public website. Temporary value-free setup helper removed afterward.

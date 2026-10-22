@@ -3,6 +3,7 @@ import Welcome from "@/components/biryani/welcome";
 import PhoneOrder from "@/components/biryani/phone-order";
 import Gallery from "@/components/biryani/gallery";
 import Footer from "@/components/biryani/footer";
+import CustomerReviews from "@/components/biryani/customer-reviews";
 
 export default function Home() {
   return <>
@@ -11,6 +12,7 @@ export default function Home() {
       <Welcome />
       <PhoneOrder />
       <Gallery />
+      <CustomerReviews />
     </main>
     <Footer />
   </>;
