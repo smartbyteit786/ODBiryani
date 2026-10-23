@@ -1,5 +1,12 @@
 # Worklog
 
+## October 23, 2026 — Optional request card and reminders (not live)
+
+- Added a floating request card only after a successful private-form response. Customers can expand, hide, restore from the footer, or forget the latest request. Copy clearly distinguishes a received request from booking/payment confirmation.
+- Reminders require a customer choice: tomorrow at 9 am or a chosen local time. Website reminders save only reference/timestamps for up to 30 days and appear once when open or on return. Turning off does not reschedule. Calendar export includes an alarm and requires the customer to save it. No native Dynamic Island, background push or live fulfillment tracking is claimed.
+- Production build/TypeScript, ESLint and 16 unit tests passed. Private ordering export passed. Local Chrome preview at 127.0.0.1:8765 timed out, so browser interaction, responsive visual acceptance and real iPhone calendar import are still pending.
+- Release marker: odbiryani-2026-10-23-order-reminders. See docs/order-card-reminders.md. Netlify CLI authorization and browser file-upload permission remain unresolved; this is not deployed, owner notification is not configured, and the live public contact removal is still pending. Next: upload latest release.zip, verify live privacy and forms, configure private notification, run synthetic order/card/mobile tests, and obtain owner inbox confirmation.
+
 ## October 23, 2026 — Hide owner contact and use private order form (not live)
 
 - Browser fallback found an authenticated Chrome Netlify session and opened the correct odbiryani project. Upload of privacy-checked release.zip was attempted through its existing “choose a file” control, but the ChatGPT extension rejected file access because “Allow access to file URLs” is disabled. No extension permissions were changed and no site publication occurred. Deployment page is kept for handoff. The CLI still returns 401; browser access is functional, browser file upload is the immediate blocker.

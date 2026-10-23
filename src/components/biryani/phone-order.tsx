@@ -4,6 +4,7 @@ import { useSyncExternalStore, useState, useRef, type FormEvent } from "react";
 import { Check, CheckCircle2, ShoppingBag, Truck, LockKeyhole } from "lucide-react";
 import { MEAL_PACKAGES, DELIVERY_RADIUS_MILES, getFoodPrice } from "@/lib/meal-pricing";
 import { getOrderPhoneHref, getLocalDateMinimum, getBookingDeposit } from "@/lib/order-contact";
+import { recordReceivedRequest } from "@/lib/order-status-store";
 
 const subscribeToLocalDay = (onChange: () => void) => {
   const timer = window.setInterval(onChange, 60000);
@@ -53,6 +54,7 @@ export default function PhoneOrder() {
     try {
       const response = await fetch("/__forms.html", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body.toString(), signal: AbortSignal.timeout(20000) });
       if (!response.ok) throw new Error("Receipt not confirmed");
+      recordReceivedRequest(id);
       form.reset(); setPeople(""); setChickenCut(""); setRequestedDate(""); setRequestedTime(""); setFulfillment("pickup");
       setStatus("success");
       requestAnimationFrame(() => document.getElementById("order-receipt")?.focus());

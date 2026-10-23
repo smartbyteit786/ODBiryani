@@ -4,6 +4,7 @@ import PhoneOrder from "@/components/biryani/phone-order";
 import Gallery from "@/components/biryani/gallery";
 import Footer from "@/components/biryani/footer";
 import CustomerReviews from "@/components/biryani/customer-reviews";
+import OrderStatusCard from "@/components/biryani/order-status-card";
 
 export default function Home() {
   return <>
@@ -15,5 +16,6 @@ export default function Home() {
       <CustomerReviews />
     </main>
     <Footer />
+    <OrderStatusCard />
   </>;
 }

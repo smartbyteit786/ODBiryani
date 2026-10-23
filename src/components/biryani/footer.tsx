@@ -2,6 +2,7 @@
 
 
 import { Heart } from "lucide-react";
+import { OrderStatusLink } from "@/components/biryani/order-status-card";
 
 
 export default function Footer() {
@@ -58,6 +59,7 @@ export default function Footer() {
             <h3 className="font-display text-base font-semibold text-saffron">Planning a meal?</h3>
             <p className="mt-4 text-sm leading-relaxed text-cream/60">Pickup available with no delivery charge. Delivery within 5 miles costs extra based on your route. Pay with Zelle, Apple Cash, or Cash App after we confirm your total privately. A 50% booking deposit secures your order; the rest is due at pickup or delivery. </p>
             <a href="#order" className="mt-4 inline-block rounded-full bg-saffron px-6 py-3 text-sm font-bold text-espresso">Order</a>
+            <OrderStatusLink />
           </div>
         </div>
 
