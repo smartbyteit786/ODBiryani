@@ -2,10 +2,10 @@
 
 
 import { Heart } from "lucide-react";
-import { ORDER_PHONE_DISPLAY, getOrderTextHref } from "@/lib/order-contact";
+
 
 export default function Footer() {
-  const phoneHref = getOrderTextHref(ORDER_PHONE_DISPLAY);
+
   return (
     <footer className="relative overflow-hidden border-t border-saffron/15 bg-[#0d0804] pb-8 pt-16 text-cream">
       <div className="pointer-events-none absolute -top-32 left-1/2 h-64 w-[700px] -translate-x-1/2 rounded-full bg-saffron/8 blur-[100px]" aria-hidden="true" />
@@ -56,8 +56,8 @@ export default function Footer() {
           {/* contact */}
           <div>
             <h3 className="font-display text-base font-semibold text-saffron">Planning a meal?</h3>
-            <p className="mt-4 text-sm leading-relaxed text-cream/60">Pickup available with no delivery charge. Delivery within 5 miles costs extra based on your route. Pay with Zelle, Apple Cash, or Cash App after we confirm your total by text. A 50% booking deposit secures your order; the rest is due at pickup or delivery. No calls, please.</p>
-            {phoneHref ? <a href={phoneHref} className="mt-4 inline-block text-base font-semibold text-saffron underline underline-offset-4">{ORDER_PHONE_DISPLAY}</a> : <a href="#order" className="mt-4 inline-block text-sm text-saffron underline underline-offset-4">Plan your meal</a>}
+            <p className="mt-4 text-sm leading-relaxed text-cream/60">Pickup available with no delivery charge. Delivery within 5 miles costs extra based on your route. Pay with Zelle, Apple Cash, or Cash App after we confirm your total privately. A 50% booking deposit secures your order; the rest is due at pickup or delivery. </p>
+            <a href="#order" className="mt-4 inline-block rounded-full bg-saffron px-6 py-3 text-sm font-bold text-espresso">Order</a>
           </div>
         </div>
 

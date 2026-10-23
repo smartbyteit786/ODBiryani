@@ -16,13 +16,12 @@ for (const meat of ['Beef', 'Lamb']) {
 assert(html.includes('name="fulfillment"') && html.includes('value="pickup"') && html.includes('value="delivery"'), 'Pickup and delivery must be available');
 assert(text.includes('No delivery charge') && text.includes('by route'));
 for (const method of ['Zelle', 'Apple Cash', 'Cash App']) assert(text.includes(method), 'Missing payment method ' + method);
-assert(text.includes('How to order') && text.includes('Text ODB'));
-assert(!html.includes('name="name"') && !html.includes('name="phone"') && !html.includes('name="deliveryAddress"'), 'Text-only ordering must not collect customer details through the website');
+assert(text.includes('How to order') && text.includes('Send your request'));
+assert(html.includes('name="customerName"') && html.includes('name="customerEmail"') && html.includes('name="customerPhone"'), 'Private order contact fields must be present');
 assert(!text.includes('Send my meal request'), 'Old web request button must not be visible');
-const textLinks = [...html.matchAll(/href="(sms:[^"]+)"/g)].map(match => match[1]);
-assert(textLinks.length >= 2 && textLinks.every(link => link.startsWith('sms:+17702947145')), 'All order text links must use the approved ODB number');
-assert(text.includes('+1 (770) 294-7145'), 'Approved phone number must be visible');
-console.log('Ordering export passed: approved prices, minimum four, unavailable meats, pickup/delivery, payment methods, and text-only flow.');
+assert(!/href="(?:tel:|sms:|mailto:)/i.test(html), 'Owner contact links must not be public');
+assert(html.includes('name="odb-order-request"'), 'Private order form required');
+console.log('Ordering export passed: approved prices, minimum four, unavailable meats, pickup/delivery, payment methods, and private order flow.');
 
 assert(!/href="tel:/.test(html), 'No call links allowed');
 assert(html.includes('type="date"') && html.includes('type="time"'), 'Requested date and time required');

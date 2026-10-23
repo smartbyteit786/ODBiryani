@@ -34,7 +34,7 @@ export default function ReviewForm() {
       requestAnimationFrame(() => result.current?.focus());
     } catch {
       setStatus("error");
-      setError("We couldn’t confirm receipt. Your review is still here. Please check your connection or text ODB before trying again.");
+      setError("We couldn’t confirm receipt. Your review is still here. Please check your connection before trying again.");
     } finally { lock.current = false; }
   }
 
@@ -66,7 +66,7 @@ export default function ReviewForm() {
           <div><label htmlFor="review-phone" className="mb-2 block text-sm font-semibold">Phone number used for your order</label><input id="review-phone" name="orderPhone" type="tel" autoComplete="tel" inputMode="tel" required minLength={7} maxLength={30} onInput={event => event.currentTarget.setCustomValidity("")} className={field} aria-describedby="review-phone-help" /><p id="review-phone-help" className="mt-2 flex items-start gap-1.5 text-xs leading-relaxed text-espresso/65"><LockKeyhole className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />Private. Used only to match your review to a completed order.</p></div>
           <div><label htmlFor="review-message" className="mb-2 block text-sm font-semibold">Your review</label><textarea id="review-message" name="reviewText" required minLength={10} maxLength={1200} rows={4} className={`${field} resize-y`} placeholder="Tell us about your biryani, portions, or pickup and delivery experience." aria-describedby="review-message-help" /><p id="review-message-help" className="mt-2 text-xs leading-relaxed text-espresso/65">Please leave phone numbers, addresses and payment details out of your review. 10–1,200 characters.</p></div>
           <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-espresso/75"><input type="checkbox" name="publicationConsent" value="yes" required className="mt-1 h-5 w-5 shrink-0 accent-ember" /><span>I ordered from ODB and agree that my review, rating, first name and last initial may be published after my order is checked. My phone number will stay private.</span></label>
-          <p className="text-xs leading-relaxed text-espresso/65">Your submission is stored privately with our website provider, Netlify. It is checked manually; this is not text-code verification. To request a correction or removal, text ODB from the phone number you used for your order.</p>
+          <p className="text-xs leading-relaxed text-espresso/65">Your submission is stored privately with our website provider, Netlify. It is checked manually; this is not text-code verification. To request a correction or removal, reply to your order confirmation.</p>
           {status === "error" && <p role="alert" className="rounded-xl border border-ember/25 bg-ember/5 p-4 text-sm leading-relaxed text-ember">{error}</p>}
           <button type="submit" disabled={status === "sending"} className="flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-ember px-6 py-3.5 font-bold text-white transition hover:bg-[#a94025] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ember"><Send className="h-4 w-4" aria-hidden="true" />{status === "sending" ? "Sending your review…" : "Send review for checking"}</button>
         </fieldset>

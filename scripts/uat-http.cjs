@@ -18,9 +18,8 @@ async function main() {
     'x-frame-options': 'DENY',
     'referrer-policy': 'strict-origin-when-cross-origin',
   })) record('Security header: ' + header, response.headers.get(header) === value);
-  const texts = [...html.matchAll(/href="(sms:[^"]+)"/g)].map(match => match[1]);
-  record('Every text link uses the approved number', texts.length >= 2 && texts.every(link => link.startsWith('sms:+17702947145')), { links: texts.length });
-  record('Text-only contact, no public mail links or customer contact form', !/href="mailto:/i.test(html) && !/href="tel:/i.test(html) && !/name="(?:name|phone|deliveryAddress)"/.test(html));
+  record('No public owner contact links', !/href="(?:tel:|sms:|mailto:)/i.test(html));
+  record('Private order form present', html.includes('name="odb-order-request"'));
   const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]));
   const anchors = [...new Set([...html.matchAll(/href="#([^"]+)"/g)].map(match => match[1]))];
   record('Every internal navigation anchor has a target', anchors.every(anchor => ids.has(anchor)), anchors);

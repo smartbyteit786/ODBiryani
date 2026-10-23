@@ -1,6 +1,6 @@
-// Publish only the business ordering phone supplied by the owner.
-// No personal name, payment handle, or private pickup address belongs here.
-export const ORDER_PHONE_DISPLAY = "+1 (770) 294-7145";
+// Owner contact details are private. Public ordering uses the on-page form.
+// Never place notification recipients, private phones or addresses in browser code.
+export const ORDER_PHONE_DISPLAY = "";
 
 // Only opens a message draft. Sending remains the customer's choice.
 export function getOrderTextHref(phone: string, message = "", ios = false): string | null {
