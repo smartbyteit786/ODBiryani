@@ -17,7 +17,7 @@ const getServerSettings = () => "";
 export default function PhoneOrder() {
   const [people, setPeople] = useState("");
   const [chickenCut, setChickenCut] = useState<"" | "bone-in" | "boneless">("");
-  const [fulfillment, setFulfillment] = useState<"pickup" | "delivery">("pickup");
+  const [fulfillment, setFulfillment] = useState<"" | "pickup" | "delivery">("");
   const count = Number(people);
   const foodPrice = getFoodPrice(count);
   const quantityValid = Number.isSafeInteger(count) && count >= 4;
@@ -30,7 +30,7 @@ export default function PhoneOrder() {
   const sending = useRef(false);
   const planner = useRef<HTMLFormElement | null>(null);
   const dateValid = !!requestedDate && requestedDate >= getLocalDateMinimum();
-  const ready = quantityValid && !!chickenCut && dateValid && !!requestedTime;
+  const ready = quantityValid && !!chickenCut && dateValid && !!requestedTime && !!fulfillment;
   const money = (amount: number) => amount.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: amount % 1 ? 2 : 0 });
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -55,7 +55,7 @@ export default function PhoneOrder() {
       const response = await fetch("/__forms.html", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body.toString(), signal: AbortSignal.timeout(20000) });
       if (!response.ok) throw new Error("Receipt not confirmed");
       recordReceivedRequest(id);
-      form.reset(); setPeople(""); setChickenCut(""); setRequestedDate(""); setRequestedTime(""); setFulfillment("pickup");
+      form.reset(); setPeople(""); setChickenCut(""); setRequestedDate(""); setRequestedTime(""); setFulfillment("");
       setStatus("success");
       requestAnimationFrame(() => document.getElementById("order-receipt")?.focus());
     } catch { setStatus("error"); setError("We couldn’t confirm receipt. Your details are still here. Please check your connection before trying again; your request may already have arrived."); }
@@ -126,11 +126,11 @@ export default function PhoneOrder() {
                 { key: "pickup", label: "Pickup", detail: "No delivery charge", icon: ShoppingBag },
                 { key: "delivery", label: "Delivery", detail: `Within ${DELIVERY_RADIUS_MILES} miles · extra charge`, icon: Truck },
               ] as const).map((option) => <label key={option.key} className="relative cursor-pointer">
-                <input type="radio" name="fulfillment" value={option.key} checked={fulfillment === option.key} onChange={() => setFulfillment(option.key)} className="peer sr-only" />
+                <input type="radio" name="fulfillment" required value={option.key} checked={fulfillment === option.key} onChange={() => setFulfillment(option.key)} className="peer sr-only" />
                 <span className="flex min-h-24 items-center gap-3 rounded-xl border border-espresso/20 bg-white p-4 transition peer-checked:border-ember peer-checked:bg-ember/5 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ember hover:border-ember"><option.icon className="h-6 w-6 shrink-0 text-ember" aria-hidden="true" /><span><span className="block text-lg font-bold">{option.label}</span><span className="mt-1 block text-sm text-espresso/70">{option.detail}</span></span><span className={`ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full border ${fulfillment === option.key ? "border-ember bg-ember text-white" : "border-espresso/25"}`} aria-hidden="true">{fulfillment === option.key && <Check className="h-4 w-4" />}</span></span>
               </label>)}
             </div>
-            <p className="mt-3 text-sm leading-relaxed text-espresso/70" aria-live="polite">{fulfillment === "pickup" ? "We’ll share the pickup location and confirm a time privately after your order is confirmed. There is no delivery charge for pickup." : `We deliver within ${DELIVERY_RADIUS_MILES} miles of our kitchen. The extra charge depends on your address and delivery route. We’ll confirm the charge before you place your order.`}</p>
+            <p className="mt-3 text-sm leading-relaxed text-espresso/70" aria-live="polite">{!fulfillment ? "Choose pickup or delivery." : fulfillment === "pickup" ? "We’ll share the pickup location and confirm a time privately after your order is confirmed. There is no delivery charge for pickup." : `We deliver within ${DELIVERY_RADIUS_MILES} miles of our kitchen. The extra charge depends on your address and delivery route. We’ll confirm the charge before you place your order.`}</p>
             {fulfillment === "delivery" && <div className="mt-4"><label htmlFor="order-address" className="mb-2 block text-sm font-semibold">Delivery address</label><textarea id="order-address" name="deliveryAddress" autoComplete="street-address" required minLength={12} maxLength={300} rows={3} placeholder="Street, apartment or unit, city, state and ZIP" className="w-full rounded-xl border border-espresso/20 bg-white px-4 py-3 text-base focus:outline-2 focus:outline-ember" /><p className="mt-2 text-xs leading-relaxed text-espresso/65">We’ll check your address and confirm the delivery charge before payment.</p></div>}
           </fieldset>
 
@@ -146,15 +146,15 @@ export default function PhoneOrder() {
           <div>
             <h3 className="font-display text-2xl font-semibold">Ways to pay</h3>
             <ul className="mt-4 flex flex-wrap gap-2" aria-label="Accepted payment methods">{["Zelle", "Apple Cash", "Cash App"].map((method) => <li key={method} className="rounded-full border border-espresso/15 bg-white px-4 py-2.5 text-sm font-semibold">{method}</li>)}</ul>
-            <p className="mt-3 text-sm leading-relaxed text-espresso/70">We&apos;ll confirm your total and share payment details privately privately. A 50% booking deposit is required to secure your confirmed order. The remaining 50% is due at pickup or delivery. Please wait for our confirmation before paying.</p>
+            <p className="mt-3 text-sm leading-relaxed text-espresso/70">We&apos;ll confirm your total and share payment details privately. A 50% booking deposit is required to secure your confirmed order. The remaining 50% is due at pickup or delivery. Please wait for our confirmation before paying.</p>
           </div>
 
           <div className="border-t border-espresso/15 pt-6">
             <div className="space-y-3" aria-live="polite" aria-atomic="true">
               <div className="flex items-center justify-between gap-4 text-base font-semibold"><span>Listed meal price</span><span>{foodPrice === null ? "Confirm privately" : `$${foodPrice}`}</span></div>
               <div className="flex items-center justify-between gap-4 text-sm text-espresso/70"><span>Chicken cut</span><span>{chickenCut === "bone-in" ? "Bone-in" : chickenCut === "boneless" ? "Boneless" : "Choose above"}</span></div>
-              <div className="flex items-center justify-between gap-4 text-sm text-espresso/70"><span>{fulfillment === "pickup" ? "Pickup" : "Delivery charge"}</span><span className="text-right">{fulfillment === "pickup" ? "No delivery charge" : "Extra · confirmed by route"}</span></div>
-              <div className="flex items-center justify-between gap-4 text-sm font-semibold"><span>50% booking deposit</span><span className="text-right">{foodPrice === null ? "After quote" : fulfillment === "delivery" ? "After final total" : `${money(getBookingDeposit(foodPrice))} on meal price`}</span></div>
+              <div className="flex items-center justify-between gap-4 text-sm text-espresso/70"><span>{!fulfillment ? "Pickup or delivery" : fulfillment === "pickup" ? "Pickup" : "Delivery charge"}</span><span className="text-right">{!fulfillment ? "Choose above" : fulfillment === "pickup" ? "No delivery charge" : "Extra · confirmed by route"}</span></div>
+              <div className="flex items-center justify-between gap-4 text-sm font-semibold"><span>50% booking deposit</span><span className="text-right">{foodPrice === null || !fulfillment ? "After quote" : fulfillment === "delivery" ? "After final total" : `${money(getBookingDeposit(foodPrice))} on meal price`}</span></div>
             </div>
             <p className="mt-4 text-sm leading-relaxed text-espresso/65">{people && quantityValid && foodPrice === null ? "For this group size, we’ll quote your meal privately. " : ""}The amounts shown use our listed meal prices. We’ll confirm the price for your selected cut, any delivery charge, and your 50% deposit privately before payment.</p>
             {status === "error" && <p role="alert" className="mt-4 rounded-xl border border-ember/25 bg-ember/5 p-4 text-sm text-ember">{error}</p>}
