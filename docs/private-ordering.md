@@ -1,4 +1,6 @@
-# Private owner contact — prepared, not published
+# Private owner contact — published October 25, 2026
+
+The privacy and order-card release is live on onedishbiryani.com through GitHub main and Netlify. Public owner contact links are absent. The dedicated order notification is configured to the approved private recipient for odb-order-request only. A marked synthetic browser submission was accepted, and aggregate form metadata increased from zero to one. Owner inbox receipt remains unconfirmed. Saved CLI authorization still fails; browser access works.
 
 The owner requested that public phone details be removed and that orders reach the owner-supplied iCloud recipient privately. A disguised `mailto:`, `sms:` or `tel:` button would expose its destination to browsers; this update uses a private Netlify order form instead.
 
@@ -10,11 +12,11 @@ The owner requested that public phone details be removed and that orders reach t
 - The customer's email is copied into the standard Netlify `email` field for reply-to handling. This is customer data, not the owner's notification recipient. Confirmation receipt clears the visible form; failed/uncertain submissions preserve inputs and the same reference to aid duplicate checking.
 - Review intake remains private and owner-verified before curated publication. The review form no longer directs customers to a public owner number; correction requests can use a reply to their order confirmation.
 
-## Private notification setup still required
+## Private notification configuration and acceptance
 
 The owner-approved notification recipient is stored only in ignored `.netlify/private/order-notifications.json`; it is not imported by the application or included in source/public assets. Do not copy the address into this document, GitHub, a hidden HTML field, a `NEXT_PUBLIC_*` variable, a mail link, or a browser API response.
 
-Netlify currently rejects the saved login with HTTP 401. After access is restored:
+Netlify rejects the saved CLI login with HTTP 401. The following setup and acceptance procedure was completed through the signed-in browser, except owner inbox confirmation and remaining device-specific checks:
 
 1. Build/deploy this branch and verify the new `odb-order-request` form's field definition. Preserve existing forms and records.
 2. In Netlify Forms > Submission notifications, add an email notification **only for `odb-order-request`**, addressed to the approved private recipient. Do not silently forward review/customer data to other accounts or alter unrelated notifications.
@@ -26,6 +28,6 @@ The owner email can remain absent from the public site while receiving notificat
 
 ## Current release boundary
 
-Build/type/lint and exported privacy checks can be completed locally. Publication, registration of the new form, email notification configuration/delivery and browser acceptance are blocked until Netlify access is restored. The existing live site still shows the previously published phone until the new version is deployed. Historical Git commits and prior archives are not rewritten by this change.
+Production publication, form registration, order-specific notification configuration and a synthetic browser request are verified. Thirty live HTTP checks pass. The request card, reminder opt-in/off, hide/restore and conditional delivery address were exercised in the browser. A 390px viewport had no horizontal overflow. Full device coverage, actual iPhone calendar import, background/push notifications and owner inbox receipt are not verified. Historical Git commits and prior archives are not rewritten by this change.
 
 Reference: [Netlify form notifications and reply-to behavior](https://docs.netlify.com/manage/forms/notifications/).

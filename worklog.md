@@ -1,5 +1,14 @@
 # Worklog
 
+## October 25, 2026 — Privacy release is live through GitHub
+
+- Owner connected ODB Netlify to GitHub main. Fast-forwarded main to the tested feature work, then published 842bba4 with explicit required pickup/delivery selection and corrected payment wording. Netlify reports main@842bba4 published. Live marker is odbiryani-2026-10-23-order-reminders.
+- Verified 30/30 production HTTP checks, expected release/assets/security headers, no public contact links, corrected payment copy and no default fulfillment selection. Final local build/TypeScript, privacy export and changed-component lint passed.
+- All three Netlify forms registered; preserved legacy biryani-order and its four prior submissions. Configured only odb-order-request email notifications to the approved private recipient. Initial any-form scope was corrected and rechecked as order-specific before the test request.
+- Submitted one clearly marked ODB UAT Test - do not prepare request with reserved example.com/555 contacts. Receipt and floating card appeared; aggregate order form count increased from zero to one. Did not read customer submission records. Owner inbox receipt is still unconfirmed; no real order/payment was accepted by this test.
+- Browser verified conditional delivery address, required-field validation, received-request card, reminder opt-in and turn-off, hide and footer restore. At 390px, document width was 380px with no horizontal overflow. Proof screenshot: ignored .netlify/uat/live-order-card.png. Calendar generation has unit coverage; real iPhone import/native alerts not tested. No native Dynamic Island or push service.
+- Remaining: owner confirms test email delivery, broader real-device UAT including calendar import and delivery/error paths, and review-intake acceptance. Automatic route pricing remains unactivated on its separate branch. Saved CLI token still returns 401; GitHub deployments now work.
+
 ## October 25, 2026 — Release access rechecked
 
 - Confirmed clean feature branch at 10e4e1d and checked the existing static export: private order contract passes; release.zip is ready with the order-reminders release marker.
