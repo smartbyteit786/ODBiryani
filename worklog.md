@@ -1,5 +1,12 @@
 # Worklog
 
+## October 25, 2026 — Release access rechecked
+
+- Confirmed clean feature branch at 10e4e1d and checked the existing static export: private order contract passes; release.zip is ready with the order-reminders release marker.
+- Live HTTPS homepage and release metadata still fail the new-release acceptance checks; the site has not received these changes. Netlify saved authorization still returns HTTP 401 Access Denied.
+- Signed-in Chrome still has access to the correct ODB project. Retried its normal ZIP upload once; the extension blocked file access because Allow access to file URLs remains disabled. No permission settings were changed and no publication occurred. Kept the project tab for handoff and provided the exact extension setting instructions.
+- Next required user action: enable the Chrome ChatGPT extension file-URL access, or manually upload workspace release.zip in the ODB Netlify project. Then continue live form/privacy verification, configure private notifications, and run synthetic customer-flow acceptance. Do not report owner contacts hidden on production until checked after publishing.
+
 ## October 23, 2026 — Optional request card and reminders (not live)
 
 - Added a floating request card only after a successful private-form response. Customers can expand, hide, restore from the footer, or forget the latest request. Copy clearly distinguishes a received request from booking/payment confirmation.
