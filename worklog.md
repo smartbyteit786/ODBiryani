@@ -1,5 +1,13 @@
 # Worklog
 
+## October 28, 2026 — Mobile scrolling fix published; Safari device check remains
+
+- User reported iPhone Safari scrolling freezes and asked for UAT/fixes by 7 AM. Published 112ad80 through GitHub main with marker odbiryani-2026-10-28-mobile-scroll. Replaced the scroll-reactive blurred header, removed gallery animations/lightbox blur, retained native scrolling, and switched active kitchen imagery to bounded responsive WebP copies. Original photos preserved.
+- Photo small variants total 398,210 bytes instead of 6,145,992 bytes; 10 image variants pass transfer/decoded-memory/metadata budgets, now enforced during build. Build/TypeScript, ESLint, 16 unit tests and three exported feature/privacy checks passed. Live HTTP acceptance: 25/25 checks and 13 assets. Source has fewer animation assets, so HTTP count is lower than the previous 30-check release.
+- Browser UAT passed 320–1440px overflow checks, menu/gallery navigation, modal scroll-lock release, required order fields, minimum quantity, cut/fulfillment/address, simulated submission failure with preserved values, successful synthetic delivery retry, receipt, reminder opt-in/off and hide/restore. Review validation passed without submitting a review. No customer records read. Calendar prepared-file feedback appears, but browser download event timed out and iPhone calendar import is not verified.
+- A browser command stalled overnight; missed 7 AM target and informed user candidly. The browser checks are Chromium at mobile sizes, not actual Safari. Root cause on the user's iPhone remains unproven; do not call full physical-device UAT passed. Test browser throttle/touch/network rules and viewport override reset.
+- Detailed evidence and remaining checks: docs/uat-2026-10-28.md. Proof: ignored .netlify/uat/mobile-scroll-2026-10-28.png. Next: iPhone Safari scroll confirmation, owner inbox receipt, calendar import. Auto route pricing remains unactivated.
+
 ## October 25, 2026 — Privacy release is live through GitHub
 
 - Owner connected ODB Netlify to GitHub main. Fast-forwarded main to the tested feature work, then published 842bba4 with explicit required pickup/delivery selection and corrected payment wording. Netlify reports main@842bba4 published. Live marker is odbiryani-2026-10-23-order-reminders.
