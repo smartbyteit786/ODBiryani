@@ -1,0 +1,62 @@
+[
+  {
+    "file": "public/images/optimized/biryani-plate-640.webp",
+    "width": 640,
+    "height": 1138,
+    "bytes": 110788
+  },
+  {
+    "file": "public/images/optimized/biryani-plate-1280.webp",
+    "width": 1280,
+    "height": 2276,
+    "bytes": 282334
+  },
+  {
+    "file": "public/images/optimized/pot-fresh-640.webp",
+    "width": 640,
+    "height": 853,
+    "bytes": 72042
+  },
+  {
+    "file": "public/images/optimized/pot-fresh-1280.webp",
+    "width": 1280,
+    "height": 1707,
+    "bytes": 192706
+  },
+  {
+    "file": "public/images/optimized/feast-table-640.webp",
+    "width": 640,
+    "height": 1138,
+    "bytes": 108528
+  },
+  {
+    "file": "public/images/optimized/feast-table-1280.webp",
+    "width": 1152,
+    "height": 2048,
+    "bytes": 220646
+  },
+  {
+    "file": "public/images/optimized/curry-pot-640.webp",
+    "width": 640,
+    "height": 853,
+    "bytes": 53956
+  },
+  {
+    "file": "public/images/optimized/curry-pot-1280.webp",
+    "width": 960,
+    "height": 1280,
+    "bytes": 96846
+  },
+  {
+    "file": "public/images/optimized/pot-prep-640.webp",
+    "width": 640,
+    "height": 853,
+    "bytes": 52896
+  },
+  {
+    "file": "public/images/optimized/pot-prep-1280.webp",
+    "width": 1280,
+    "height": 1707,
+    "bytes": 131216
+  }
+]

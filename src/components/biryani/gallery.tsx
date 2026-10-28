@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
-import { motion } from "framer-motion";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X, ChevronLeft, ChevronRight, Expand, BadgeCheck } from "lucide-react";
 
@@ -22,6 +21,7 @@ const PHOTOS = [
   },
   {
     src: "/images/feast-table.jpg",
+    largeWidth: 1152,
     caption: "A meal to share",
     tag: "The Feast",
     real: true,
@@ -29,6 +29,7 @@ const PHOTOS = [
   },
   {
     src: "/images/curry-pot.jpg",
+    largeWidth: 960,
     caption: "The masala base, simmering",
     tag: "Behind The Pot",
     real: true,
@@ -63,54 +64,42 @@ export default function Gallery() {
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <p
               className="mb-4 flex items-center gap-3 text-xs font-extrabold tracking-[0.35em] text-ember uppercase"
             >
               <span className="h-px w-10 bg-ember" /> Gallery
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.08 }}
+            </p>
+            <h2
               className="font-display text-4xl leading-[1.06] font-semibold md:text-6xl"
             >
               A look inside <span className="italic text-ember">our kitchen.</span>
-            </motion.h2>
+            </h2>
           </div>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
+          <p
             className="flex items-center gap-2 text-xs font-bold tracking-wide text-espresso/60"
           >
             <BadgeCheck className="h-4 w-4 text-leaf" />
             Photos from our kitchen
-          </motion.p>
+          </p>
         </div>
 
         <div className="mt-12 grid auto-rows-[190px] grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:[grid-auto-flow:dense]">
           {PHOTOS.map((p, i) => (
-            <motion.button
+            <button
               key={p.src + i}
-              initial={{ opacity: 0, y: 34, scale: 0.97 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.55, delay: (i % 4) * 0.07 }}
               onClick={(event) => { opener.current = event.currentTarget; setIndex(i); }}
               className={`group relative overflow-hidden rounded-2xl text-left shadow-[0_14px_40px_rgba(20,13,7,0.14)] focus:outline-2 focus:outline-offset-2 focus:outline-ember ${p.span}`}
               aria-label={`Open photo: ${p.caption}`}
             >
               { }
               <img
-                src={p.src}
+                src={p.src.replace(".jpg", "-640.webp").replace("/images/", "/images/optimized/")}
+                srcSet={`${p.src.replace(".jpg", "-640.webp").replace("/images/", "/images/optimized/")} 640w, ${p.src.replace(".jpg", "-1280.webp").replace("/images/", "/images/optimized/")} ${p.largeWidth ?? 1280}w`}
+                sizes="(max-width: 639px) 100vw, (max-width: 767px) 50vw, 640px"
+                decoding="async"
                 alt={p.caption}
                 loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                className="h-full w-full object-cover transition-transform duration-200 motion-safe:md:group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-espresso/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               <div className="absolute inset-x-4 bottom-4 translate-y-3 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
@@ -125,7 +114,7 @@ export default function Gallery() {
                   Real Kitchen
                 </span>
               )}
-            </motion.button>
+            </button>
           ))}
         </div>
       </div>
@@ -134,7 +123,7 @@ export default function Gallery() {
       <Dialog.Portal>
         {index !== null && (
           <>
-          <Dialog.Overlay className="fixed inset-0 z-[90] bg-espresso/95 backdrop-blur-md" />
+          <Dialog.Overlay className="fixed inset-0 z-[90] bg-espresso" />
           <Dialog.Content
             className="fixed inset-0 z-[91] flex items-center justify-center p-4 outline-none"
             onCloseAutoFocus={(event) => { event.preventDefault(); opener.current?.focus(); }}
@@ -175,18 +164,15 @@ export default function Gallery() {
               <ChevronRight className="h-6 w-6" />
             </button>
 
-            <motion.figure
+            <figure
               key={index}
-              initial={{ opacity: 0, scale: 0.92, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="max-h-[82vh] max-w-4xl"
               onClick={(e) => e.stopPropagation()}
             >
               { }
               <img
-                src={PHOTOS[index].src}
+                src={PHOTOS[index].src.replace(".jpg", "-1280.webp").replace("/images/", "/images/optimized/")}
+                decoding="async"
                 alt={PHOTOS[index].caption}
                 className="max-h-[72vh] w-auto rounded-xl object-contain shadow-2xl"
               />
@@ -196,7 +182,7 @@ export default function Gallery() {
                 </p>
                 <p className="mt-1 font-display text-xl text-cream italic">{PHOTOS[index].caption}</p>
               </figcaption>
-            </motion.figure>
+            </figure>
           </Dialog.Content>
           </>
         )}

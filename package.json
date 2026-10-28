@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000",
-    "build": "node scripts/check-reviews.mjs && next build && node scripts/check-private-order-export.cjs",
+    "build": "node scripts/check-reviews.mjs && next build && node scripts/check-private-order-export.cjs && node scripts/check-mobile-images.mjs",
     "start": "next dev -p 3000",
     "lint": "eslint .",
     "db:push": "prisma db push --accept-data-loss",
